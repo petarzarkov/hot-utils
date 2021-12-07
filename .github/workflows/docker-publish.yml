@@ -1,0 +1,24 @@
+name: Docker Publish CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.18.0'
+    - name: npm install, lint, build, and publish
+      run: |
+        npm install
+        npm run lint
+        npm run bnw
+        npm run publish
