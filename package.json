@@ -1,6 +1,6 @@
 {
   "name": "@p.zarkov/hotstuff",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Various NodeJS utils",
   "repository": {
     "url": "https://github.com/petarzarkov/hotstuff"
