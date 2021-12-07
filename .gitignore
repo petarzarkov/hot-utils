@@ -1,0 +1,7 @@
+node_modules
+build
+*.log
+local.json
+local.js
+.idea
+coverage
