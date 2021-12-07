@@ -7,7 +7,11 @@ ARG NODE_ENV
 ENV NODE_ENV=$NODE_ENV
 COPY --chown=node:node . /app
 RUN ls -lah /app
-RUN cd /app && npm install && npm run bnw
+RUN cd /app && \
+    npm install && \
+    npm run lint && \
+    npm run bnw 
+
 RUN ls -lah /app
 
 FROM appbase AS appfinal

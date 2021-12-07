@@ -1,5 +1,8 @@
 # 🔥 Hot Stuff 🔥
+Various NodeJS utils
 
+## Usage
+`npm install hotstuff`
 
 ## Languages and Tools
 ---
