@@ -1,4 +1,6 @@
 FROM node:14.18.0-alpine3.11 AS base
+
+ARG NPM_TOKEN
 RUN apk update && apk add bash
 RUN npm -g install npm@7.20
 
@@ -10,11 +12,5 @@ RUN ls -lah /app
 RUN cd /app && \
     npm install && \
     npm run lint && \
-    npm run bnw 
-
-RUN ls -lah /app
-
-FROM appbase AS appfinal
-USER node
-WORKDIR /app/data
-# CMD ["/bin/bash", "-x", "/app/publish-in-npm-TO-DO.sh"]
+    npm run bnw && \
+    npm run publish
