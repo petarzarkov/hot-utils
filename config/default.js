@@ -1,3 +1,3 @@
 export default {
-    defaultTimeout: 10000
+    defaultHttpTimeout: 10000
 }

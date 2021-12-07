@@ -4,6 +4,22 @@ Various NodeJS utils
 ## Usage
 `npm i @p.zarkov/hotstuff`
 
+### fetchService
+```js
+const myRes = await fetchService({
+    url: "https://www.yoururl.com/{pathParamToReplace}",
+    method: "GET",
+    payload: { some: "payload" },
+    options: {
+        pathParams: {
+            pathParamToReplace: "myDynamicPathParam"
+        },
+        queryParams: {
+            someQueryParam: true
+        }
+    }
+});
+```
 ## Languages and Tools
 ---
 [<img align="left" title="Visual Studio Code" alt="vsCode" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />](https://code.visualstudio.com/)

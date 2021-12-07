@@ -4,14 +4,14 @@ import { StatusCodes } from "http-status-codes";
 import { Stopwatch } from "../stopwatch";
 import { HttpRequest, HttpResponse } from "../../contracts";
 import { buildUrl, replacePathParams } from "../../utils";
-import { DEFAULT_TIMEOUT } from "../../constants";
+import { DEFAULT_HTTP_TIMEOUT } from "../../constants";
 
 // AbortController was added in node v14.17.0 globally
 const AbortController = globalThis?.AbortController || AbortControllerNpm;
 
 export async function fetchService<TRequest extends Record<string | number, unknown>, TResponse>(baseReq: HttpRequest<TRequest>): Promise<HttpResponse<TResponse>> {
     const { options, payload, url: baseUrl, method = "GET" } = baseReq;
-    const { customHeaders, queryParams, pathParams, timeout = DEFAULT_TIMEOUT } = options || {};
+    const { customHeaders, queryParams, pathParams, timeout = DEFAULT_HTTP_TIMEOUT } = options || {};
     const controller = new AbortController();
     const timeoutFetch = setTimeout(() => {
         controller.abort();
@@ -56,4 +56,3 @@ export async function fetchService<TRequest extends Record<string | number, unkn
     }
 
 }
-

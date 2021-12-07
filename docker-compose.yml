@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  hotstuff:
+    build:
+      context: .
+      args:
+        - DEFAULT_TIMEOUT=10000
+    image: hotstuff:local
+    hostname: "hotstuff"
+    container_name: hotstuff

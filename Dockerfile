@@ -17,4 +17,4 @@ RUN ls -lah /app
 FROM appbase AS appfinal
 USER node
 WORKDIR /app/data
-CMD ["/bin/bash", "-x", "/app/publish-in-npm-TO-DO.sh"]
+# CMD ["/bin/bash", "-x", "/app/publish-in-npm-TO-DO.sh"]
