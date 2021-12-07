@@ -22,11 +22,10 @@
         "watch": false,
         "baseUrl": ".",
         "pretty": true,
-        "outDir": "build"
+        "outDir": "hotstuff"
     },
     "include": [
-        "src",
-        "index.ts"
+        "src"
     ],
     "compileOnSave": false
 }

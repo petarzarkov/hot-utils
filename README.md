@@ -2,7 +2,7 @@
 Various NodeJS utils
 
 ## Usage
-`npm install hotstuff`
+`npm i @p.zarkov/hotstuff`
 
 ## Languages and Tools
 ---
