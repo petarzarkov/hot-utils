@@ -1,13 +1,18 @@
 # 🔥 Hot Stuff 🔥
 Various NodeJS utils
 
-## Install
-`npm i @p.zarkov/hotstuff`
+## Table of Contents
+- 📮 [fetchService](#fetchService)
+- ⏲️ [Stopwatch](#Stopwatch)
+- ⚙️ [UrlUtils](#UrlUtils)
+- 📜 [HotLogger](#HotLogger)
+- ⚡ [Languages and tools](#languages-and-tools)
 
-## Utils
-### fetchService
+<br />
+
+## 📮 fetchService <a name="fetchService"></a>
 ---
-#### for everything http
+### for everything http
 
 <br />
 
@@ -49,9 +54,9 @@ type HttpErrorResponse<T> = {
 ```
 <br />
 
-### Stopwatch
+## ⏲️ Stopwatch <a name="Stopwatch"></a>
 ---
-#### for timing
+### for timing
 <br />
 
 usage
@@ -68,9 +73,9 @@ mySW.getElapsedS(); // elapsed seconds since construction
 
 <br />
 
-### UrlUtils
+## ⚙️ UrlUtils <a name="UrlUtils"></a>
 ---
-#### Build your URL from an already existing URL or a string with optional query params
+### Build your URL from an already existing URL or a string with optional query params
 #### or just use the methods in isolation
 <br />
 No need to instantiate UrlUtils, accessing the instance will do that for you
@@ -125,7 +130,30 @@ UrlUtils.instance.build({
 
 <br />
 
-## Languages and Tools
+## HotLogger <a name="HotLogger"></a>
+---
+### Log all you need
+<br />
+
+usage
+```ts
+import { HotLogger } from "@p.zarkov/hotstuff";
+
+const myLogger = new HotLogger.createLogger("MyLoggerContext");
+
+// Logs
+[{"Message":"Some info msg","LogLevel":"Trace","SourceContext":"MyLoggerContext","data":{"smh":"ye"},"ProcessID":21268,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:06:01.911Z"}]
+myLogger.trace("Some info msg", { data: { smh: "ye"} });
+
+// Logs
+[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at some more stack trace","ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
+myLogger.error("Some err msg", { err: new Error("yer error") });
+
+```
+
+<br />
+
+## Languages and Tools <a name="languages-and-tools"></a>
 ---
 [<img align="left" title="Visual Studio Code" alt="vsCode" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />](https://code.visualstudio.com/)
 [<img align="left" title="JavaScript" alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />](https://www.javascript.com/)
