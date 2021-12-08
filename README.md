@@ -146,7 +146,7 @@ const myLogger = new HotLogger.createLogger("MyLoggerContext");
 myLogger.trace("Some info msg", { data: { smh: "ye"} });
 
 // Logs
-[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at some more stack trace","ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
+[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hotstuff\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
 myLogger.error("Some err msg", { err: new Error("yer error") });
 
 ```
