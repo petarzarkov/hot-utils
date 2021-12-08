@@ -9,7 +9,7 @@ export type HttpErrorResponse<T> = {
     isGood: false;
     error: string;
     elapsed: number;
-    statusCode?: number;
+    statusCode: number;
     response?: T;
 };
 

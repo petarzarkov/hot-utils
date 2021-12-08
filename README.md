@@ -1,14 +1,23 @@
 # 🔥 Hot Stuff 🔥
 Various NodeJS utils
 
-## Usage
+## Install
 `npm i @p.zarkov/hotstuff`
 
+## Utils
 ### fetchService
-```js
+---
+#### for everything http
+
+<br />
+
+usage
+```ts
+import { fetchService } from "@p.zarkov/hotstuff";
+
 const myRes = await fetchService({
     url: "https://www.yoururl.com/{pathParamToReplace}",
-    method: "GET",
+    method: "POST",
     payload: { some: "payload" },
     options: {
         pathParams: {
@@ -20,6 +29,62 @@ const myRes = await fetchService({
     }
 });
 ```
+#### response is one of the two:
+```ts
+type HttpSuccessResponse<T> = {
+    isGood: true;
+    statusCode: number;
+    elapsed: number;
+    response: T;
+};
+
+type HttpErrorResponse<T> = {
+    isGood: false;
+    error: string;
+    elapsed: number;
+    statusCode: number;
+    response?: T;
+};
+```
+<br />
+
+### Stopwatch
+---
+#### for timing
+<br />
+
+usage
+```ts
+import { Stopwatch } from "@p.zarkov/hotstuff";
+
+const mySW = new Stopwatch();
+
+(() => Promise)(); // Some action
+
+mySW.getElapsedMs(); // elapsed miliseconds since construction
+mySW.getElapsedS(); // elapsed seconds since construction
+```
+
+<br />
+
+### replacePathParams
+---
+#### basically a formatUnicorn
+<br />
+
+usage
+```ts
+import { replacePathParams } from "@p.zarkov/hotstuff";
+
+const myNewReplacedString = replacePathParams("Some {replacement}.", { replacement: "text" });
+
+console.log(myNewReplacedString);
+// Outputs
+// Some text.
+```
+
+<br />
+
 ## Languages and Tools
 ---
 [<img align="left" title="Visual Studio Code" alt="vsCode" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />](https://code.visualstudio.com/)

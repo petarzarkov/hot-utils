@@ -50,7 +50,7 @@ export async function fetchService<TRequest extends Record<string | number, unkn
         return { isGood: true, statusCode: rawResponse.status || StatusCodes.OK, response, elapsed: sw.getElapsedMs() };
     } catch (err) {
         const message = `Failed on ${method} Request`;
-        return { isGood: false, error: (err as Error)?.message || message, statusCode: rawResponse?.status, elapsed: sw.getElapsedMs() };
+        return { isGood: false, error: (err as Error)?.message || message, statusCode: rawResponse?.status || StatusCodes.INTERNAL_SERVER_ERROR, elapsed: sw.getElapsedMs() };
     } finally {
         clearTimeout(timeoutFetch);
     }

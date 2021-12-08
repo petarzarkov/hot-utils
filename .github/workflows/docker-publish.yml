@@ -23,4 +23,5 @@ jobs:
         npm install
         npm run lint
         npm run bnw
-        npm run publish
+        npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+        npm publish

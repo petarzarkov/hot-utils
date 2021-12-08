@@ -13,4 +13,5 @@ RUN cd /app && \
     npm install && \
     npm run lint && \
     npm run bnw && \
+    npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && \
     npm run publish
