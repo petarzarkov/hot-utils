@@ -64,7 +64,7 @@ export function shallowEquals<X extends Record<PropertyKey, unknown>, Y extends 
     }
 
     for (const key of keysA) {
-        if (!hasProp(objB, key) || !Object.is(objA[key], objB[key])) {
+        if (!hasProp(objB, key) || !Object.is(getValue(objA, key), getValue(objB, key))) {
             return false;
         }
     }
