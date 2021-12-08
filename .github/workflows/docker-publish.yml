@@ -18,10 +18,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.18.0'
-    - name: npm install, lint, build
+    - name: npm install and build
       run: |
         npm install
-        npm run lint
         npm run bnw
     - name: versioning
       run: |
