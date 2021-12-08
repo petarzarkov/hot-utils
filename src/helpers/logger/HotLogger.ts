@@ -6,12 +6,12 @@ import { NODE_ENV, LOG_LEVEL, APP_NAME, VERSION } from "../../constants";
 
 export class HotLogger implements IHotLogger {
     private readonly levelMap: Record<HotLogLevel, HotLogDisplayName>;
-    public readonly logLevel: HotLogLevel;
+    public readonly configuredLogLevel: HotLogLevel;
     public readonly name: string;
     public readonly staticLogParams: LoggerParams;
     public constructor(name: string) {
         this.name = name;
-        this.logLevel = LOG_LEVEL && this.isValidLogLevel(LOG_LEVEL) ? HotLogLevel[<keyof typeof HotLogLevel>LOG_LEVEL] : HotLogLevel.TRACE;
+        this.configuredLogLevel = LOG_LEVEL && this.isValidLogLevel(LOG_LEVEL) ? HotLogLevel[<keyof typeof HotLogLevel>LOG_LEVEL] : HotLogLevel.TRACE;
         this.levelMap = {
             [HotLogLevel.TRACE]: HotLogDisplayName.Trace,
             [HotLogLevel.DEBUG]: HotLogDisplayName.Debug,
@@ -36,8 +36,8 @@ export class HotLogger implements IHotLogger {
     public isValidLogLevel = (level: string) => Object.keys(HotLogLevel).includes(level);
 
     private log(level: HotLogLevel, message: string, params: MessageParams = {}) {
-        if (this.logLevel <= level) {
-            const loggerMessage = this.parseLogMessage(message, params);
+        if (this.configuredLogLevel <= level) {
+            const loggerMessage = this.parseLogMessage(level, message, params);
             console.log(JSON.stringify(loggerMessage));
         }
     }
@@ -61,7 +61,7 @@ export class HotLogger implements IHotLogger {
         return this.log(HotLogLevel.FATAL, message, params);
     }
 
-    public parseLogMessage(message: string, params: LoggerParams): HotLoggerMessage | undefined {
+    public parseLogMessage(level: HotLogLevel, message: string, params: LoggerParams): HotLoggerMessage | undefined {
         let v: string | LoggerParams = message;
         if (typeof message === "object") {
             v = params;
@@ -85,7 +85,7 @@ export class HotLogger implements IHotLogger {
 
         return [{
             Message: v,
-            LogLevel: this.levelMap[this.logLevel],
+            LogLevel: this.levelMap[level],
             SourceContext: this.name,
             ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
             ...params.err ? { ...params, err: undefined } : { ...params },
