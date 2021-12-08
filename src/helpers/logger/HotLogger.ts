@@ -87,7 +87,7 @@ export class HotLogger implements IHotLogger {
             Message: v,
             LogLevel: this.levelMap[level],
             SourceContext: this.name,
-            ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
+            ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack.split("\n")[1].trim() } },
             ...params.err ? { ...params, err: undefined } : { ...params },
             ...this.staticLogParams,
             LogTimestamp: new Date().toISOString()

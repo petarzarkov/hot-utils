@@ -130,7 +130,7 @@ UrlUtils.instance.build({
 
 <br />
 
-## HotLogger <a name="HotLogger"></a>
+## 📜 HotLogger <a name="HotLogger"></a>
 ---
 ### Log all you need
 <br />
