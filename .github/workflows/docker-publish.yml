@@ -3,6 +3,7 @@ name: Docker Publish CI
 on:
   pull_request_target:
     branches: [ main ]
+    types: [ closed ]
 
 jobs:
   publish:
