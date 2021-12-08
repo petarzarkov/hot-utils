@@ -16,10 +16,11 @@ usage
 import { fetchService } from "@p.zarkov/hotstuff";
 
 const myRes = await fetchService({
-    url: "https://www.yoururl.com/{pathParamToReplace}",
+    url: "https://www.yoururl.com/",
     method: "POST",
     payload: { some: "payload" },
     options: {
+        path: "/somePath/{pathParamToReplace}",
         pathParams: {
             pathParamToReplace: "myDynamicPathParam"
         },
@@ -67,20 +68,59 @@ mySW.getElapsedS(); // elapsed seconds since construction
 
 <br />
 
-### replacePathParams
+### UrlUtils
 ---
-#### basically a formatUnicorn
+#### Build your URL from an already existing URL or a string with optional query params
+#### or just use the methods in isolation
 <br />
+No need to instantiate UrlUtils, accessing the instance will do that for you
+You could still use your own instance -> const myOwnInstance = new UrlUtils() -> myOwnInstance.buildQuery
 
-usage
+- buildQuery
 ```ts
-import { replacePathParams } from "@p.zarkov/hotstuff";
+import { UrlUtils } from "@p.zarkov/hotstuff";
 
-const myNewReplacedString = replacePathParams("Some {replacement}.", { replacement: "text" });
 
-console.log(myNewReplacedString);
-// Outputs
-// Some text.
+// All three result in http://localhost:4444/?query1=val1&query2=true
+UrlUtils.instance.buildQuery("http://localhost:4444/", { query1: "val1", query2: true  });
+UrlUtils.instance.buildQuery("http://localhost:4444", { query1: "val1", query2: true  });
+UrlUtils.instance.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: true  });
+
+// Nullables are ignored
+// Results in http://localhost:4444/?query1=val1
+UrlUtils.instance.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: undefined  });
+```
+
+- replacePathParams - basically a formatUnicorn
+```ts
+import { UrlUtils } from "@p.zarkov/hotstuff";
+
+// Results in "Some text."
+UrlUtils.instance.replacePathParams("Some {replacement}.", { replacement: "text" });
+```
+
+- buildFromString - builds a new URL from string
+```ts
+import { UrlUtils } from "@p.zarkov/hotstuff";
+
+// Domain can end with / or not
+// Path can start with / or not
+// Both result in "http://localhost:4444/some/path/params/"
+UrlUtils.instance.buildFromString("http://localhost:4444/", "/some/path/params/");
+UrlUtils.instance.buildFromString("http://localhost:4444", "some/path/params/");
+```
+
+- build - combines buildQuery, buildFromString, replacePathParams
+```ts
+import { UrlUtils } from "@p.zarkov/hotstuff";
+
+// Results in "http://localhost:4444/base/path/somedynamicpath/?someQ=1"
+UrlUtils.instance.build({
+    base: "http://localhost:4444/{someBasePath}",
+    path: "/path/{dynamic}/",
+    pathParams: { someBasePath: "base", dynamic: "somedynamicpath" },
+    queryParams: { someQ: "1"}
+});
 ```
 
 <br />

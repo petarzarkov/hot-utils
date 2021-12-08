@@ -13,10 +13,10 @@ const getNewVersion = require("./getNewVersion");
         const newVersion = getNewVersion(pkg.version);
         console.log("New Version ->", newVersion);
 
-        execSync(`npm version ${newVersion}`);
-        // const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
-        // execSync("git add ./package.json");
-        // execSync(`git commit -m "${branch} version of ${pkg.name} bumped to ${newVersion}"`);
+        execSync(`npm version ${newVersion} --no-git-tag-version`);
+        const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+        execSync("git add ./package.json");
+        execSync(`git commit -am "[branch|${branch}] version of ${pkg.name} bumped to ${newVersion}"`);
 
         console.log(`Finished versioning, version bumped to ${newVersion}!`);
 
