@@ -15,11 +15,12 @@
   "license": "MIT",
   "main": "hotstuff/index.js",
   "scripts": {
+    "start": "node hotstuff/index.js", 
     "bnw": "npm run build",
     "prebuild": "npm run clean",
     "clean": "tsc --build --clean",
     "build": "tsc -p tsconfig.json",
-    "build:watch": "npm run build -- --watch",
+    "bw": "npm run build -- --watch",
     "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src",
     "lint:fix": "npm run lint --fix",
     "upVersion": "node ./scripts/updateVersion.js"
