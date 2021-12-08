@@ -15,16 +15,14 @@
   "license": "MIT",
   "main": "hotstuff/index.js",
   "scripts": {
-    "start": "node hotstuff/index.js",
-    "start:env": "node -r dotenv/config hotstuff/index.js",
-    "bns": "npm run build && npm run start",
     "bnw": "npm run build",
     "prebuild": "npm run clean",
     "clean": "tsc --build --clean",
     "build": "tsc -p tsconfig.json",
     "build:watch": "npm run build -- --watch",
     "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src",
-    "lint:fix": "npm run lint --fix"
+    "lint:fix": "npm run lint --fix",
+    "upVersion": "node ./scripts/updateVersion.js"
   },
   "devDependencies": {
     "@types/config": "0.0.40",
