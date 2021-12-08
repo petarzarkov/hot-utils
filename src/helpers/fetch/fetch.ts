@@ -43,7 +43,7 @@ export async function fetchService<TRequest extends Record<string | number, unkn
     let rawResponse: Response | undefined;
     try {
         rawResponse = await fetch(url, requestOptions);
-        const response = await rawResponse.json() as TResponse;
+        const response = await parseResponse(rawResponse) as TResponse;
         if (!rawResponse.ok) {
             const message = `${method} Request unsuccessful response`;
             return { isGood: false, error: message, statusCode: rawResponse.status, response, elapsed: sw.getElapsedMs() };
@@ -58,3 +58,16 @@ export async function fetchService<TRequest extends Record<string | number, unkn
     }
 
 }
+
+const parseResponse = async <Res>(response: Response) => {
+    let resT: string | undefined;
+    let resJ: Res;
+    try {
+        resT = await response.text();
+        resJ = JSON.parse(resT) as unknown as Res;
+    } catch (error) {
+        return resT || response.statusText;
+    }
+
+    return resJ as unknown as Res;
+};
