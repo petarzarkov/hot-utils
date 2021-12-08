@@ -1,11 +1,6 @@
 name: Docker Build CI
 
-on:
-  push:
-    branches-ignore: 
-    - main
-  pull_request:
-
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
