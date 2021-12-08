@@ -1,6 +1,6 @@
 {
   "name": "@p.zarkov/hotstuff",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Various NodeJS utils",
   "repository": {
     "url": "https://github.com/petarzarkov/hotstuff"
@@ -15,7 +15,7 @@
   "license": "MIT",
   "main": "hotstuff/index.js",
   "scripts": {
-    "start": "node hotstuff/index.js", 
+    "start": "node hotstuff/index.js",
     "bnw": "npm run build",
     "prebuild": "npm run clean",
     "clean": "tsc --build --clean",
