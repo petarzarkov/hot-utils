@@ -1,9 +1,12 @@
 # 🔥 Hot Utils 🔥
 various NodeJS utils with type definition inference
 
+## Install
+`npm install hot-utils`
+
 ## Table of Contents
 - 💨 [HotRequests](#HotRequests)
-- ⏲️ [Hotwatch](#Hotwatch)
+- ⏲ [HotWatch](#HotWatch)
 - ⚙️ [HotUrl](#HotUrl)
 - 📜 [HotLogger](#HotLogger)
 - 💫 [HotObj](#HotObj)
@@ -12,14 +15,13 @@ various NodeJS utils with type definition inference
 <br />
 
 ## 💨 HotRequests <a name="HotRequests"></a>
+### Supports all http methods
 ---
-### supports all http methods
 
 <br />
 
-usage
 ```ts
-import { HotRequests } from "@p.zarkov/hotstuff";
+import { HotRequests } from "hot-utils";
 
     const res = await HotRequests.get({
         url: "https://wisdoms-app.herokuapp.com/api/{myPath}",
@@ -51,7 +53,7 @@ import { HotRequests } from "@p.zarkov/hotstuff";
 
 
 ```
-#### response is one of the two:
+#### Response is one of the two:
 ```ts
 type HttpSuccessResponse<T> = {
     isGood: true;
@@ -70,21 +72,20 @@ type HttpErrorResponse<T> = {
 ```
 <br />
 
-## ⏲️ Stopwatch <a name="Stopwatch"></a>
-### for timing
+## ⏲️ HotWatch <a name="HotWatch"></a>
+### For timing
 ---
 <br />
 
-usage
 ```ts
-import { Stopwatch } from "@p.zarkov/hotstuff";
+import { HotWatch } from "hot-utils";
 
-const mySW = new Stopwatch();
+const myWatch = new HotWatch();
 
 (() => Promise)(); // Some action
 
-mySW.getElapsedMs(); // elapsed miliseconds since construction
-mySW.getElapsedS(); // elapsed seconds since construction
+myWatch.getElapsedMs(); // elapsed miliseconds since construction
+myWatch.getElapsedS(); // elapsed seconds since construction
 ```
 
 <br />
@@ -95,7 +96,7 @@ mySW.getElapsedS(); // elapsed seconds since construction
 <br />
 
 ```ts
-import { HotUrl } from "./utils";
+import { HotUrl } from "hot-utils";
 
 // Results in "http://localhost:4444/base/path/somedynamicpath/?someQ=1"
 HotUrl.build({
@@ -131,19 +132,16 @@ HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 ---
 <br />
 
-usage
 ```ts
-import { HotLogger } from "@p.zarkov/hotstuff";
+import { HotLogger } from "hot-utils";
 
 const myLogger = new HotLogger.createLogger("MyLoggerContext");
 
 myLogger.trace("Some info msg", { data: { smh: "ye"} });
-// [{"Message":"Some info msg","LogLevel":"Trace","SourceContext":"MyLoggerContext","data":{"smh":"ye"},"ProcessID":21268,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:06:01.911Z"}]
+// [{"Message":"Some info msg","LogLevel":"Trace","SourceContext":"MyLoggerContext","data":{"smh":"ye"},"ProcessID":21268,"AppVersion":"0.0.5","AppName":"hot-utils","Env":"development","LogTimestamp":"2021-12-08T13:06:01.911Z"}]
 
 myLogger.error("Some err msg", { err: new Error("yer error") });
-// [{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hotstuff\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
-
-
+// [{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hot-utils\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"hot-utils","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
 ```
 
 <br />
@@ -154,9 +152,8 @@ myLogger.error("Some err msg", { err: new Error("yer error") });
 ---
 <br />
 
-usage
 ```ts
-import { HotObj } from "./utils";
+import { HotObj } from "hot-utils";
 
 const a = { 1: "one", "one": 1 };
 const b = { 1: "one", "one": 1 };
@@ -176,8 +173,6 @@ HotObj.getValue<{
     1: string;
     one: number;
 }, key: "one" | 1): string | number | undefined
-
-
 ```
 
 <br />

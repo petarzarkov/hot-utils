@@ -8,14 +8,18 @@
   "keywords": [
     "node",
     "ts",
+    "hot",
+    "hot-utils",
     "utils",
+    "url",
+    "object",
     "http"
   ],
   "author": "Petar Zarkov",
   "license": "MIT",
-  "main": "hotstuff/index.js",
+  "main": "hot-utils/index.js",
   "scripts": {
-    "start": "node hotstuff/index.js",
+    "start": "node hot-utils/index.js",
     "bnw": "npm run build",
     "prebuild": "npm run clean",
     "clean": "tsc --build --clean",
@@ -45,7 +49,7 @@
     "cache": "cache/.npm"
   },
   "files": [
-    "hotstuff",
+    "hot-utils",
     "index.d.ts",
     "index.js",
     "index.js.map"

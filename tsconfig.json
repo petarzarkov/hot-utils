@@ -22,7 +22,7 @@
         "watch": false,
         "baseUrl": ".",
         "pretty": true,
-        "outDir": "hotstuff"
+        "outDir": "hot-utils"
     },
     "include": [
         "src"

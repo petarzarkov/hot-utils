@@ -1,4 +1,4 @@
 module.exports = {
-    appName: "hotstuff",
+    appName: "hot-utils",
     defaultHttpTimeout: 10000
 }
