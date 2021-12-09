@@ -1,4 +1,4 @@
-export class Hotwatch {
+export class HotWatch {
     private startTime: number;
     public constructor() {
         this.startTime = Date.now();

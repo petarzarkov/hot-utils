@@ -1,7 +1,7 @@
 import fetch, { Response, RequestInit } from "node-fetch";
 import { AbortController as AbortControllerNpm } from "abort-controller";
 import { StatusCodes } from "http-status-codes";
-import { Hotwatch } from "../hotwatch";
+import { HotWatch } from "../hotwatch";
 import { HttpMethods, HttpRequest, HttpResponse } from "../../contracts";
 import { HotUrl } from "../../utils";
 import { DEFAULT_HTTP_TIMEOUT } from "../../constants";
@@ -41,7 +41,7 @@ export class HotRequests {
             requestOptions.headers = { ...requestOptions.headers, ...headers };
         }
 
-        const hw = new Hotwatch();
+        const hw = new HotWatch();
         let rawResponse: Response | undefined;
         try {
             rawResponse = await fetch(url, requestOptions);
