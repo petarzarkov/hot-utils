@@ -10,6 +10,7 @@ various NodeJS utils with type definition inference
 - ⚙️ [HotUrl](#HotUrl)
 - 📜 [HotLogger](#HotLogger)
 - 💫 [HotObj](#HotObj)
+- 🚥 [HotPromise](#HotPromise)
 - ⚡ [Languages and tools](#languages-and-tools)
 
 <br />
@@ -173,6 +174,60 @@ HotObj.getValue<{
     1: string;
     one: number;
 }, key: "one" | 1): string | number | undefined
+
+
+const nullableObj = {
+    ble: "undefined",
+    notaNum: Number("undefined"),
+    thisIsFine: 1
+};
+
+HotObj.cleanUpNullables(nullableObj); // { thisIsFine: 1 }
+```
+
+<br />
+
+## 🚥 HotPromise <a name="HotPromise"></a>
+### Promise utils
+---
+<br />
+
+```ts
+import { HotPromise } from "./utils";
+
+// Results in
+// {
+//  isGood: false,
+//  error: Timed out in 1000 ms.
+// }
+//
+const promiseTimeout = async () => {
+    try {
+        await HotPromise.promiseTimeout(HotPromise.delay(1010), 1000);
+        return { isGood: true, result: "good" };
+    } catch (error) {
+        return { isGood: false, result: error };
+    }
+};
+
+
+// Results in
+// {
+//  isGood: false,
+//  error: Error: Fail, total tries: 5
+// }
+//
+const runTillSuccess = async () => {
+    try {
+        // Default retry times are 5, you can pass in "forever" to retry indefinitely
+        // retries will stop as soon as isGood: true has been returned by the retried action
+        const ehee = await HotPromise.runTillSuccess(promiseTimeout);
+        return { isGood: true, result: { code: "OK", ehee } };
+    } catch (error) {
+        return { isGood: false, error };
+    }
+};
+
 ```
 
 <br />
