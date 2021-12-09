@@ -1,39 +1,55 @@
 # 🔥 Hot Stuff 🔥
-Various NodeJS utils
+various NodeJS utils with type definition inference
 
 ## Table of Contents
-- 📮 [fetchService](#fetchService)
+- 💨 [HotRequests](#HotRequests)
 - ⏲️ [Stopwatch](#Stopwatch)
-- ⚙️ [UrlUtils](#UrlUtils)
+- ⚙️ [HotUrl](#HotUrl)
 - 📜 [HotLogger](#HotLogger)
+- 💫 [HotObj](#HotObj)
 - ⚡ [Languages and tools](#languages-and-tools)
 
 <br />
 
-## 📮 fetchService <a name="fetchService"></a>
+## 💨 HotRequests <a name="HotRequests"></a>
 ---
-### for everything http
+### supports all http methods
 
 <br />
 
 usage
 ```ts
-import { fetchService } from "@p.zarkov/hotstuff";
+import { HotRequests } from "@p.zarkov/hotstuff";
 
-const myRes = await fetchService({
-    url: "https://www.yoururl.com/",
-    method: "POST",
-    payload: { some: "payload" },
-    options: {
-        path: "/somePath/{pathParamToReplace}",
-        pathParams: {
-            pathParamToReplace: "myDynamicPathParam"
-        },
-        queryParams: {
-            someQueryParam: true
+    const res = await HotRequests.get({
+        url: "https://wisdoms-app.herokuapp.com/api/{myPath}",
+        options: {
+            timeout: 400,
+            pathParams: { myPath: "getWisdom" },
+            queryParams: { lang: "en" }
         }
-    }
-});
+    });
+
+  // A successful response results in the following
+  res: {
+    isGood: true,
+    statusCode: 200,
+    response: {
+      sucess: true,
+      wisdom: 'But he who gives them to him, the bad guys get along easily, one does not live on bread alone.',
+      lang: 'en'
+    },
+    elapsed: 374
+  }
+  // Or if it times out
+  res: {
+    isGood: false,
+    error: 'The operation was aborted.',
+    statusCode: 500,
+    elapsed: 322
+  }
+
+
 ```
 #### response is one of the two:
 ```ts
@@ -73,54 +89,52 @@ mySW.getElapsedS(); // elapsed seconds since construction
 
 <br />
 
-## ⚙️ UrlUtils <a name="UrlUtils"></a>
+## ⚙️ HotUrl <a name="HotUrl"></a>
 ---
 ### Build your URL from an already existing URL or a string with optional query params
 #### or just use the methods in isolation
 <br />
-No need to instantiate UrlUtils, accessing the instance will do that for you
-You could still use your own instance -> const myOwnInstance = new UrlUtils() -> myOwnInstance.buildQuery
 
 - buildQuery
 ```ts
-import { UrlUtils } from "@p.zarkov/hotstuff";
+import { HotUrl } from "@p.zarkov/hotstuff";
 
 
 // All three result in http://localhost:4444/?query1=val1&query2=true
-UrlUtils.instance.buildQuery("http://localhost:4444/", { query1: "val1", query2: true  });
-UrlUtils.instance.buildQuery("http://localhost:4444", { query1: "val1", query2: true  });
-UrlUtils.instance.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: true  });
+HotUrl.buildQuery("http://localhost:4444/", { query1: "val1", query2: true  });
+HotUrl.buildQuery("http://localhost:4444", { query1: "val1", query2: true  });
+HotUrl.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: true  });
 
 // Nullables are ignored
 // Results in http://localhost:4444/?query1=val1
-UrlUtils.instance.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: undefined  });
+HotUrl.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: undefined  });
 ```
 
 - replacePathParams - basically a formatUnicorn
 ```ts
-import { UrlUtils } from "@p.zarkov/hotstuff";
+import { HotUrl } from "@p.zarkov/hotstuff";
 
 // Results in "Some text."
-UrlUtils.instance.replacePathParams("Some {replacement}.", { replacement: "text" });
+HotUrl.replacePathParams("Some {replacement}.", { replacement: "text" });
 ```
 
 - buildFromString - builds a new URL from string
 ```ts
-import { UrlUtils } from "@p.zarkov/hotstuff";
+import { HotUrl } from "@p.zarkov/hotstuff";
 
 // Domain can end with / or not
 // Path can start with / or not
 // Both result in "http://localhost:4444/some/path/params/"
-UrlUtils.instance.buildFromString("http://localhost:4444/", "/some/path/params/");
-UrlUtils.instance.buildFromString("http://localhost:4444", "some/path/params/");
+HotUrl.buildFromString("http://localhost:4444/", "/some/path/params/");
+HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 ```
 
 - build - combines buildQuery, buildFromString, replacePathParams
 ```ts
-import { UrlUtils } from "@p.zarkov/hotstuff";
+import { HotUrl } from "@p.zarkov/hotstuff";
 
 // Results in "http://localhost:4444/base/path/somedynamicpath/?someQ=1"
-UrlUtils.instance.build({
+HotUrl.build({
     base: "http://localhost:4444/{someBasePath}",
     path: "/path/{dynamic}/",
     pathParams: { someBasePath: "base", dynamic: "somedynamicpath" },
@@ -148,6 +162,40 @@ myLogger.trace("Some info msg", { data: { smh: "ye"} });
 // Logs
 [{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hotstuff\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
 myLogger.error("Some err msg", { err: new Error("yer error") });
+
+```
+
+<br />
+
+
+## 💫 HotObj <a name="HotObj"></a>
+---
+### Object utils
+<br />
+
+usage
+```ts
+import { HotObj } from "./utils";
+
+const a = { 1: "one", "one": 1 };
+const b = { 1: "one", "one": 1 };
+
+HotObj.shallowEquals(a, b); // true
+HotObj.strip(a, [1, 1]); // { '1': 'one' }
+HotObj.strip(a, [1, 2]); // Type '2' is not assignable to type '"one" | 1'.
+HotObj.hasProp(a, 1); // true
+HotObj.hasProp(a, "one"); // true
+HotObj.getValue(a, "one"); // 1
+HotObj.getValue(a, "e"); // Argument of type '"e"' is not assignable to parameter of type '"one" | 1'.
+// Type definition is inferred:
+HotObj.getValue<{
+    1: string;
+    one: number;
+}, "one" | 1>(obj: {
+    1: string;
+    one: number;
+}, key: "one" | 1): string | number | undefined
+
 
 ```
 

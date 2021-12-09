@@ -4,7 +4,7 @@ import { RequestInit } from "node-fetch";
 export type ParamsType = Record<string, string | boolean | number | undefined>;
 
 export interface IBaseOptions extends RequestInit {
-    customHeaders?: Record<string, string>;
+    headers?: Record<string, string>;
     timeout?: number;
     path?: string;
     pathParams?: ParamsType;
