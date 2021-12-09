@@ -1,7 +1,7 @@
 {
-  "name": "@p.zarkov/hotstuff",
+  "name": "hot-utils",
   "version": "0.1.0",
-  "description": "Various NodeJS utils",
+  "description": "various NodeJS utils with TS support",
   "repository": {
     "url": "https://github.com/petarzarkov/hotstuff"
   },
