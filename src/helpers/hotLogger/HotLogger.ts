@@ -61,6 +61,14 @@ export class HotLogger implements IHotLogger {
         return this.log(HotLogLevel.FATAL, message, params);
     }
 
+    public child(childName: string): IHotLogger {
+        if (!childName || typeof childName !== "string") {
+            return this;
+        }
+
+        return new HotLogger(`${this.name}:${childName}`);
+    }
+
     public parseLogMessage(level: HotLogLevel, message: string, params: LoggerParams): HotLoggerMessage | undefined {
         let v: string | LoggerParams = message;
         if (typeof message === "object") {
@@ -87,7 +95,7 @@ export class HotLogger implements IHotLogger {
             Message: v,
             LogLevel: this.levelMap[level],
             SourceContext: this.name,
-            ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack.split("\n")[1].trim() } },
+            ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
             ...params.err ? { ...params, err: undefined } : { ...params },
             ...this.staticLogParams,
             LogTimestamp: new Date().toISOString()

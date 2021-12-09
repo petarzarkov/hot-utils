@@ -20,4 +20,6 @@ export interface IHotLogger {
     warn(message: string, params?: MessageParams, ...templateTokens: TemplateTokens): void;
     error(message: string, params: ErrorParams, ...templateTokens: TemplateTokens): void;
     fatal(message: string, params: ErrorParams, ...templateTokens: TemplateTokens): void;
+
+    child(logName: string): IHotLogger;
 }
