@@ -1,7 +1,7 @@
 import fetch, { Response, RequestInit } from "node-fetch";
 import { AbortController as AbortControllerNpm } from "abort-controller";
 import { StatusCodes } from "http-status-codes";
-import { Stopwatch } from "../stopwatch";
+import { Hotwatch } from "../hotwatch";
 import { HttpMethods, HttpRequest, HttpResponse } from "../../contracts";
 import { HotUrl } from "../../utils";
 import { DEFAULT_HTTP_TIMEOUT } from "../../constants";
@@ -41,20 +41,20 @@ export class HotRequests {
             requestOptions.headers = { ...requestOptions.headers, ...headers };
         }
 
-        const sw = new Stopwatch();
+        const hw = new Hotwatch();
         let rawResponse: Response | undefined;
         try {
             rawResponse = await fetch(url, requestOptions);
             const response = await this.parseResponse(rawResponse) as TResponse;
             if (!rawResponse.ok) {
                 const message = `Hot ${method} request not successful`;
-                return { isGood: false, error: message, statusCode: rawResponse.status, response, elapsed: sw.getElapsedMs() };
+                return { isGood: false, error: message, statusCode: rawResponse.status, response, elapsed: hw.getElapsedMs() };
             }
 
-            return { isGood: true, statusCode: rawResponse.status || StatusCodes.OK, response, elapsed: sw.getElapsedMs() };
+            return { isGood: true, statusCode: rawResponse.status || StatusCodes.OK, response, elapsed: hw.getElapsedMs() };
         } catch (err) {
             const message = `Hot ${method} request not successful`;
-            return { isGood: false, error: (err as Error)?.message || message, statusCode: rawResponse?.status || StatusCodes.INTERNAL_SERVER_ERROR, elapsed: sw.getElapsedMs() };
+            return { isGood: false, error: (err as Error)?.message || message, statusCode: rawResponse?.status || StatusCodes.INTERNAL_SERVER_ERROR, elapsed: hw.getElapsedMs() };
         } finally {
             clearTimeout(timeoutFetch);
         }

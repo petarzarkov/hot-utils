@@ -1,9 +1,9 @@
-# 🔥 Hot Stuff 🔥
+# 🔥 Hot Utils 🔥
 various NodeJS utils with type definition inference
 
 ## Table of Contents
 - 💨 [HotRequests](#HotRequests)
-- ⏲️ [Stopwatch](#Stopwatch)
+- ⏲️ [Hotwatch](#Hotwatch)
 - ⚙️ [HotUrl](#HotUrl)
 - 📜 [HotLogger](#HotLogger)
 - 💫 [HotObj](#HotObj)
@@ -71,8 +71,8 @@ type HttpErrorResponse<T> = {
 <br />
 
 ## ⏲️ Stopwatch <a name="Stopwatch"></a>
----
 ### for timing
+---
 <br />
 
 usage
@@ -90,15 +90,23 @@ mySW.getElapsedS(); // elapsed seconds since construction
 <br />
 
 ## ⚙️ HotUrl <a name="HotUrl"></a>
----
 ### Build your URL from an already existing URL or a string with optional query params
-#### or just use the methods in isolation
+---
 <br />
 
-- buildQuery
 ```ts
-import { HotUrl } from "@p.zarkov/hotstuff";
+import { HotUrl } from "./utils";
 
+// Results in "http://localhost:4444/base/path/somedynamicpath/?someQ=1"
+HotUrl.build({
+    base: "http://localhost:4444/{someBasePath}",
+    path: "/path/{dynamic}/",
+    pathParams: { someBasePath: "base", dynamic: "somedynamicpath" },
+    queryParams: { someQ: "1"}
+});
+
+// Results in "Some text."
+HotUrl.replacePathParams("Some {replacement}.", { replacement: "text" });
 
 // All three result in http://localhost:4444/?query1=val1&query2=true
 HotUrl.buildQuery("http://localhost:4444/", { query1: "val1", query2: true  });
@@ -108,19 +116,6 @@ HotUrl.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: t
 // Nullables are ignored
 // Results in http://localhost:4444/?query1=val1
 HotUrl.buildQuery(new URL("http://localhost:4444/"), { query1: "val1", query2: undefined  });
-```
-
-- replacePathParams - basically a formatUnicorn
-```ts
-import { HotUrl } from "@p.zarkov/hotstuff";
-
-// Results in "Some text."
-HotUrl.replacePathParams("Some {replacement}.", { replacement: "text" });
-```
-
-- buildFromString - builds a new URL from string
-```ts
-import { HotUrl } from "@p.zarkov/hotstuff";
 
 // Domain can end with / or not
 // Path can start with / or not
@@ -129,24 +124,11 @@ HotUrl.buildFromString("http://localhost:4444/", "/some/path/params/");
 HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 ```
 
-- build - combines buildQuery, buildFromString, replacePathParams
-```ts
-import { HotUrl } from "@p.zarkov/hotstuff";
-
-// Results in "http://localhost:4444/base/path/somedynamicpath/?someQ=1"
-HotUrl.build({
-    base: "http://localhost:4444/{someBasePath}",
-    path: "/path/{dynamic}/",
-    pathParams: { someBasePath: "base", dynamic: "somedynamicpath" },
-    queryParams: { someQ: "1"}
-});
-```
-
 <br />
 
 ## 📜 HotLogger <a name="HotLogger"></a>
----
 ### Log all you need
+---
 <br />
 
 usage
@@ -155,13 +137,12 @@ import { HotLogger } from "@p.zarkov/hotstuff";
 
 const myLogger = new HotLogger.createLogger("MyLoggerContext");
 
-// Logs
-[{"Message":"Some info msg","LogLevel":"Trace","SourceContext":"MyLoggerContext","data":{"smh":"ye"},"ProcessID":21268,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:06:01.911Z"}]
 myLogger.trace("Some info msg", { data: { smh: "ye"} });
+// [{"Message":"Some info msg","LogLevel":"Trace","SourceContext":"MyLoggerContext","data":{"smh":"ye"},"ProcessID":21268,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:06:01.911Z"}]
 
-// Logs
-[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hotstuff\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
 myLogger.error("Some err msg", { err: new Error("yer error") });
+// [{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hotstuff\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"@p.zarkov/hotstuff","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
+
 
 ```
 
@@ -169,8 +150,8 @@ myLogger.error("Some err msg", { err: new Error("yer error") });
 
 
 ## 💫 HotObj <a name="HotObj"></a>
----
 ### Object utils
+---
 <br />
 
 usage
