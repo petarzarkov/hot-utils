@@ -1,7 +1,7 @@
 import fetch, { Response, RequestInit } from "node-fetch";
 import { AbortController as AbortControllerNpm } from "abort-controller";
 import { StatusCodes } from "http-status-codes";
-import { HotWatch } from "../hotwatch";
+import { HotWatch } from "../hotWatch";
 import { HttpMethods, HttpRequest, HttpResponse } from "../../contracts";
 import { HotUrl } from "../../utils";
 import { DEFAULT_HTTP_TIMEOUT } from "../../constants";

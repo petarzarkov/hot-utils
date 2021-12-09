@@ -1,1 +1,1 @@
-export * from "./hotwatch";
+export * from "./HotWatch";

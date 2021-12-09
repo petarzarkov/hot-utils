@@ -1,3 +1,3 @@
-export * from "./hotwatch";
-export * from "./hotlogger";
-export * from "./hotrequests";
+export * from "./hotWatch";
+export * from "./hotLogger";
+export * from "./hotRequests";
