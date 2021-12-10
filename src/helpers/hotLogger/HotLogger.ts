@@ -42,7 +42,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
 
     private log(level: HotLogLevel, message: string, params: MessageParams = {}) {
         if (this._configuredLogLevel <= level && !this.filterMessage(message, params)) {
-            const loggerMessage = this.parseLogMessage(level, message, params);
+            const loggerMessage = this.parseLogMessage(this._levelMap[level], message, params);
             console.log(JSON.stringify(loggerMessage));
         }
     }
@@ -74,7 +74,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
         return new HotLogger(`${this.name}:${childName}`);
     }
 
-    public parseLogMessage(level: HotLogLevel, message: string, params: LoggerParams): HotLoggerMessage | undefined {
+    public parseLogMessage(level: HotLogDisplayName, message: string, params: LoggerParams): HotLoggerMessage | undefined {
         let v: string | LoggerParams = message;
         if (typeof message === "object") {
             v = params;
@@ -104,7 +104,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
 
         return [{
             Message: v,
-            LogLevel: this._levelMap[level],
+            LogLevel: level,
             SourceContext: this.name,
             ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
             Properties: Object.assign({}, this.staticLogParams, params),
