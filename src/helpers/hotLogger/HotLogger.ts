@@ -1,6 +1,6 @@
 import { HotSerializer } from "./HotSerializer";
 import { HotLogLevel, HotLogDisplayName } from "./HotLogLevel";
-import { IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage, IHotLogConfig, IHotLogFilter } from "./IHotLogger";
+import { IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage, IHotLogConfig, IHotLogFilter, StaticParams } from "./IHotLogger";
 import { NODE_ENV, LOG_LEVEL, APP_NAME, VERSION } from "../../constants";
 import config from "config";
 
@@ -9,7 +9,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
     private readonly _configuredLogLevel: HotLogLevel;
     private readonly _logConfig: IHotLogConfig | undefined;
     public readonly name: string;
-    public readonly staticLogParams: LoggerParams;
+    public readonly staticLogParams: StaticParams;
     public constructor(name: string) {
         super(config.has("log.serializers") ? config.get("log.serializers") : undefined);
         this.name = name;

@@ -5,7 +5,13 @@ export type MessageParams = Record<string, string | number | boolean | object | 
 export type LoggerParams = Record<string, string | number | boolean | object | Error | undefined>;
 export type TemplateTokens = (string | number | boolean | object)[];
 export type SerializeParams = LoggerParams | MessageParams;
-
+export type StaticParams = {
+    ProcessID: number;
+    AppVersion: string;
+    AppName: string;
+    AppId: string;
+    Env: string;
+};
 export interface IHotLogConfig {
     level: keyof typeof HotLogLevel;
     filters?: IHotLogFilter[];
