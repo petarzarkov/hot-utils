@@ -11,9 +11,9 @@ export class HotRequests {
         return globalThis?.AbortController || AbortControllerNpm;
     }
 
-    public static async fetch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>): Promise<HttpResponse<TResponse>> {
+    public static async fetch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest> & { method: `${HttpMethods}` }): Promise<HttpResponse<TResponse>> {
         const { options, payload, url: baseUrl, method = HttpMethods.GET } = req;
-        const { headers, queryParams, pathParams, timeout = DEFAULT_HTTP_TIMEOUT, path } = options || {};
+        const { headers, queryParams, pathParams, timeout = DEFAULT_HTTP_TIMEOUT, path, logger, eventName, requestId } = options || {};
         const controller = new this.AC();
         const timeoutFetch = setTimeout(() => {
             controller.abort();
@@ -41,6 +41,7 @@ export class HotRequests {
             requestOptions.headers = { ...requestOptions.headers, ...headers };
         }
 
+        if (logger) logger.info(`Sending ${eventName || method} request`, { requestId, eventName, url, data: { request: payload } });
         const hw = new HotWatch();
         let rawResponse: Response | undefined;
         try {
@@ -48,12 +49,21 @@ export class HotRequests {
             const response = await this.parseResponse(rawResponse) as TResponse;
             if (!rawResponse.ok) {
                 const message = `Hot ${method} request not successful`;
+                if (logger) logger.warn(message, { requestId, eventName, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status } });
                 return { isGood: false, error: message, statusCode: rawResponse.status, response, elapsed: hw.getElapsedMs() };
             }
 
+            if (logger) {
+                logger.info(`${eventName || method} successful response`, {
+                    requestId, eventName, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
+                });
+            }
             return { isGood: true, statusCode: rawResponse.status || StatusCodes.OK, response, elapsed: hw.getElapsedMs() };
         } catch (err) {
             const message = `Hot ${method} request not successful`;
+            if (logger) {
+                logger.error(message, { requestId, eventName, err: <Error>err, url, duration: hw.getElapsedMs(), data: { request: payload, statusCode: rawResponse?.status, rawResponse } });
+            }
             return { isGood: false, error: (err as Error)?.message || message, statusCode: rawResponse?.status || StatusCodes.INTERNAL_SERVER_ERROR, elapsed: hw.getElapsedMs() };
         } finally {
             clearTimeout(timeoutFetch);
@@ -74,35 +84,35 @@ export class HotRequests {
         return resJ as unknown as Res;
     };
 
-    public static head<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static head<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.HEAD });
     }
 
-    public static get<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static get<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.GET });
     }
 
-    public static post<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static post<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.POST });
     }
 
-    public static put<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static put<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.PUT });
     }
 
-    public static patch<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static patch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.PATCH });
     }
 
-    public static delete<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static delete<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.DELETE });
     }
 
-    public static options<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static options<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.OPTIONS });
     }
 
-    public static trace<TRequest extends Record<string | number, unknown>, TResponse>(req: Omit<HttpRequest<TRequest>, "method">) {
+    public static trace<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {
         return this.fetch<TRequest, TResponse>({ ...req, method: HttpMethods.TRACE });
     }
 
