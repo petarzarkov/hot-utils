@@ -133,16 +133,40 @@ HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 ---
 <br />
 
+Example config:
+```js
+    log: {
+        level: "DEBUG",
+        filters: [{
+            key: "eventName",
+            values: [
+                "/_filterRoute"
+            ]
+        }],
+        serializers: [{
+            key: "eventName",
+            values: ["/serializeThisEvent"],
+            modifiers: [{ properties: ["data.smh"] }]
+        }]
+    }
+```
+
 ```ts
 import { HotLogger } from "hot-utils";
 
-const myLogger = new HotLogger.createLogger("MyLoggerContext");
+const myLogger = HotLogger.createLogger("MyLoggerContext");
 
-myLogger.trace("Some info msg", { data: { smh: "ye"} });
-// [{"Message":"Some info msg","LogLevel":"Trace","SourceContext":"MyLoggerContext","data":{"smh":"ye"},"ProcessID":21268,"AppVersion":"0.0.5","AppName":"hot-utils","Env":"development","LogTimestamp":"2021-12-08T13:06:01.911Z"}]
+myLogger.trace("Some trace msg");
+// Will not be logged due to the log.level = "DEBUG" from the above configuration
 
-myLogger.error("Some err msg", { err: new Error("yer error") });
-// [{"Message":"Some err msg","LogLevel":"Error","SourceContext":"WeHot","ExceptionMessage":"yer error","ExceptionStacktrace":"Error: yer error at Object.<anonymous> at (C:\\hot-utils\\index.js:18:40),"ProcessID":15320,"AppVersion":"0.0.5","AppName":"hot-utils","Env":"development","LogTimestamp":"2021-12-08T13:32:45.847Z"}]
+myLogger.debug("Some trace filter route", { someKey: "/_filterRoute" });
+// Will not be logged due to the log.filters[0].key = "someKey" with value "/_filterRoute"
+
+myLogger.debug("Some info msg", { data: { smh: "ye"}, someKey: "/serializeThisEvent" });
+// [{"Message":"Some info msg","LogLevel":"Debug","SourceContext":"MyLoggerContext","Properties":{"ProcessID":22172,"AppVersion":"1.0.3","AppName":"hot-utils","AppId":"development-hot-utils","Env":"development","data":{"smh":"********"},"someKey":"/serializeThisEvent"},"LogTimestamp":"2021-12-10T06:46:17.478Z"}]
+
+myLogger.error("Some err msg", { err: new Error("Test err"), data: { smh: "ye"}, someKey: "/serializeThisEvent" });
+//[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"MyLoggerContext","ExceptionMessage":"Test err","ExceptionStacktrace":"Error: Test err\n    at Object.<anonymous> (G:\\hehe\\hotstuff\\hot-utils\\index.js:19:39)\n    at Module._compile (internal/modules/cjs/loader.js:1068:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1097:10)\n    at Module.load (internal/modules/cjs/loader.js:933:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:774:14)\n    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)\n    at internal/main/run_main_module.js:17:47","Properties":{"ProcessID":4444,"AppVersion":"1.0.3","AppName":"hot-utils","AppId":"development-hot-utils","Env":"development","data":{"smh":"********"},"someKey":"/serializeThisEvent"},"LogTimestamp":"2021-12-10T06:51:21.375Z"}]
 ```
 
 <br />
