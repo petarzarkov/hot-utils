@@ -20,7 +20,7 @@ export type HotLoggerMessage = {
     SourceContext: string;
     ExceptionMessage?: string;
     ExceptionStacktrace?: string;
-}[];
+};
 
 export interface IHotLogger {
     trace(message: string, params?: MessageParams, ...templateTokens: TemplateTokens): void;
