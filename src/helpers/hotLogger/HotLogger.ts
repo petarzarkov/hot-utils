@@ -74,7 +74,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
         return new HotLogger(`${this.name}:${childName}`);
     }
 
-    public parseLogMessage(level: HotLogDisplayName, message: string, params: LoggerParams): HotLoggerMessage | undefined {
+    public parseLogMessage(level: HotLogDisplayName, message: string, params: LoggerParams): Record<string, unknown> | undefined {
         let v: string | LoggerParams = message;
         if (typeof message === "object") {
             v = params;
@@ -102,14 +102,16 @@ export class HotLogger extends HotSerializer implements IHotLogger {
 
         params = this.serializeParams(params) as LoggerParams;
 
-        return [{
+        const parsedMessage: HotLoggerMessage = {
             Message: v,
             LogLevel: level,
             SourceContext: this.name,
             ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
             Properties: Object.assign({}, this.staticLogParams, params),
             LogTimestamp: new Date().toISOString()
-        }];
+        };
+
+        return parsedMessage;
     }
 
     private filterMessage(message: string | object, params: LoggerParams): boolean {
