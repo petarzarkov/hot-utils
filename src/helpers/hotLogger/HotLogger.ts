@@ -1,18 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-function */
+import { HotSerializer } from "./HotSerializer";
 import { HotLogLevel, HotLogDisplayName } from "./HotLogLevel";
-import { IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage } from "./IHotLogger";
+import { IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage, IHotLogConfig, IHotLogFilter } from "./IHotLogger";
 import { NODE_ENV, LOG_LEVEL, APP_NAME, VERSION } from "../../constants";
+import config from "config";
 
-export class HotLogger implements IHotLogger {
-    private readonly levelMap: Record<HotLogLevel, HotLogDisplayName>;
-    public readonly configuredLogLevel: HotLogLevel;
+export class HotLogger extends HotSerializer implements IHotLogger {
+    private readonly _levelMap: Record<HotLogLevel, HotLogDisplayName>;
+    private readonly _configuredLogLevel: HotLogLevel;
+    private readonly _logConfig: IHotLogConfig | undefined;
     public readonly name: string;
     public readonly staticLogParams: LoggerParams;
     public constructor(name: string) {
+        super(config.has("log.serializers") ? config.get("log.serializers") : undefined);
         this.name = name;
-        this.configuredLogLevel = LOG_LEVEL && this.isValidLogLevel(LOG_LEVEL) ? HotLogLevel[<keyof typeof HotLogLevel>LOG_LEVEL] : HotLogLevel.TRACE;
-        this.levelMap = {
+        this._logConfig = config.has("log") ? config.get<IHotLogConfig>("log") : undefined;
+        this._configuredLogLevel = LOG_LEVEL && this.isValidLogLevel(LOG_LEVEL) ? HotLogLevel[<keyof typeof HotLogLevel>LOG_LEVEL] :
+            this._logConfig?.level ? HotLogLevel[this._logConfig.level] : HotLogLevel.TRACE;
+        this._levelMap = {
             [HotLogLevel.TRACE]: HotLogDisplayName.Trace,
             [HotLogLevel.DEBUG]: HotLogDisplayName.Debug,
             [HotLogLevel.INFO]: HotLogDisplayName.Information,
@@ -24,7 +28,8 @@ export class HotLogger implements IHotLogger {
         this.staticLogParams = {
             ProcessID: process.pid,
             AppVersion: VERSION || "missing",
-            AppName: APP_NAME || "missing",
+            AppName: APP_NAME,
+            AppId: `${NODE_ENV}-${APP_NAME}`,
             Env: NODE_ENV
         };
     }
@@ -36,7 +41,7 @@ export class HotLogger implements IHotLogger {
     public isValidLogLevel = (level: string) => Object.keys(HotLogLevel).includes(level);
 
     private log(level: HotLogLevel, message: string, params: MessageParams = {}) {
-        if (this.configuredLogLevel <= level) {
+        if (this._configuredLogLevel <= level && !this.filterMessage(message, params)) {
             const loggerMessage = this.parseLogMessage(level, message, params);
             console.log(JSON.stringify(loggerMessage));
         }
@@ -91,15 +96,51 @@ export class HotLogger implements IHotLogger {
             stack = errFromString.stack;
         }
 
+        if (params.err) {
+            delete params.err;
+        }
+
+        params = this.serializeParams(params) as LoggerParams;
+
         return [{
             Message: v,
-            LogLevel: this.levelMap[level],
+            LogLevel: this._levelMap[level],
             SourceContext: this.name,
             ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
-            ...params.err ? { ...params, err: undefined } : { ...params },
-            ...this.staticLogParams,
+            Properties: Object.assign({}, this.staticLogParams, params),
             LogTimestamp: new Date().toISOString()
         }];
+    }
+
+    private filterMessage(message: string | object, params: LoggerParams): boolean {
+        if (!this._logConfig?.filters) {
+            return false;
+        }
+
+        let paramsToFilter: LoggerParams = {};
+        if (typeof message === "object") {
+            paramsToFilter = <LoggerParams>Object.assign({}, message);
+        }
+        paramsToFilter = Object.assign({}, paramsToFilter, params);
+
+        return this._logConfig.filters.some(filter => {
+            return this.objectMatchesFilter(filter, paramsToFilter);
+        });
+    }
+
+    private objectMatchesFilter(filter: IHotLogFilter, object: LoggerParams): boolean {
+        const keys = filter.key.split(".");
+
+        const objProp = object[keys[0]];
+        if (objProp == null) {
+            return false;
+        }
+
+        if (keys.length === 1) {
+            return filter.values.some(val => objProp === val);
+        }
+
+        return this.objectMatchesFilter({ key: keys.slice(1).join("."), values: filter.values }, <LoggerParams>objProp);
     }
 
 }
