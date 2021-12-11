@@ -8,10 +8,9 @@ export class HotLogger extends HotSerializer implements IHotLogger {
     private readonly _levelMap: Record<HotLogLevel, HotLogDisplayName>;
     private readonly _configuredLogLevel: HotLogLevel;
     private readonly _logConfig: IHotLogConfig | undefined;
-    public customParseLogMessage: ((level: HotLogDisplayName, message: string, params: LoggerParams) => Record<string, unknown> | undefined) | undefined;
     public readonly name: string;
     public readonly staticLogParams: StaticParams;
-    public constructor(name: string, customParseLogMessage?: (level: HotLogDisplayName, message: string, params: LoggerParams) => Record<string, unknown> | undefined) {
+    public constructor(name: string) {
         super(config.has("log.serializers") ? config.get("log.serializers") : undefined);
         this.name = name;
         this._logConfig = config.has("log") ? config.get<IHotLogConfig>("log") : undefined;
@@ -33,7 +32,6 @@ export class HotLogger extends HotSerializer implements IHotLogger {
             AppId: `${NODE_ENV}-${APP_NAME}`,
             Env: NODE_ENV
         };
-        this.customParseLogMessage = customParseLogMessage;
     }
 
     public static createLogger(name: string) {
@@ -44,7 +42,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
 
     private log(level: HotLogLevel, message: string, params: MessageParams = {}) {
         if (this._configuredLogLevel <= level && !this.filterMessage(message, params)) {
-            const loggerMessage = this.customParseLogMessage ? this.customParseLogMessage(this._levelMap[level], message, params) : this.parseLogMessage(this._levelMap[level], message, params);
+            const loggerMessage = this.parseLogMessage(this._levelMap[level], message, params);
             console.log(JSON.stringify(loggerMessage));
         }
     }
