@@ -1,4 +1,4 @@
-import { HotLogDisplayName, HotLogLevel } from "./HotLogLevel";
+import { HotLogLevel } from "./HotLogLevel";
 
 export type ErrorParams = { err: Error } & MessageParams;
 export type MessageParams = Record<string, string | number | boolean | object | undefined>;
@@ -37,8 +37,6 @@ export interface IHotLogger {
     fatal(message: string, params: ErrorParams, ...templateTokens: TemplateTokens): void;
 
     child(logName: string): IHotLogger;
-
-    customParseLogMessage?: (level: HotLogDisplayName, message: string, params: LoggerParams) => Record<string, unknown> | undefined;
 }
 
 export interface IHotLogFilter {
