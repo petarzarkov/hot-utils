@@ -5,8 +5,10 @@ import { HotWatch } from "../hotWatch";
 import { HttpMethods, HttpRequest, HttpResponse } from "../../contracts";
 import { HotUrl } from "../../utils";
 import { DEFAULT_HTTP_TIMEOUT } from "../../constants";
+import { ExpandRecursively } from "../../contracts/Expand";
 
 export class HotRequests {
+    public static localFetch: typeof fetch = window.fetch ? window.fetch as unknown as typeof fetch : fetch;
     public static get AC() {
         return globalThis?.AbortController || AbortControllerNpm;
     }
@@ -45,8 +47,8 @@ export class HotRequests {
         const hw = new HotWatch();
         let rawResponse: Response | undefined;
         try {
-            rawResponse = await fetch(url, requestOptions);
-            const response = await this.parseResponse(rawResponse) as TResponse;
+            rawResponse = await this.localFetch(url, requestOptions);
+            const response = await this.parseResponse(rawResponse) as ExpandRecursively<TResponse>;
             if (!rawResponse.ok) {
                 const message = `Hot ${method} request not successful`;
                 if (logger) logger.warn(message, { requestId, eventName, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status } });

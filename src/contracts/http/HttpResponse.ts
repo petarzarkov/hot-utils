@@ -1,3 +1,5 @@
+import { ExpandRecursively } from "../Expand";
+
 export type HttpSuccessResponse<T> = {
     isGood: true;
     statusCode: number;
@@ -13,4 +15,4 @@ export type HttpErrorResponse<T> = {
     response?: T;
 };
 
-export type HttpResponse<T> = HttpSuccessResponse<T> | HttpErrorResponse<T>;
+export type HttpResponse<T> = ExpandRecursively<HttpSuccessResponse<T> | HttpErrorResponse<T>>;
