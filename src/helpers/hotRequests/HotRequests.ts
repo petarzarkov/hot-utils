@@ -8,7 +8,7 @@ import { DEFAULT_HTTP_TIMEOUT } from "../../constants";
 import { ExpandRecursively } from "../../contracts/Expand";
 
 export class HotRequests {
-    public static localFetch: typeof fetch = window.fetch ? window.fetch as unknown as typeof fetch : fetch;
+    public static localFetch = typeof window !== "undefined" && window.fetch ? window.fetch as unknown as typeof fetch : fetch;
     public static get AC() {
         return globalThis?.AbortController || AbortControllerNpm;
     }
