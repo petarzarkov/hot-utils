@@ -1,12 +1,18 @@
 export class HotWatch {
-    private startTime: number;
+    private _startTime: number;
     public constructor() {
-        this.startTime = Date.now();
+        this._startTime = Date.now();
     }
+
+    public get startTime() {
+        return this._startTime;
+    }
+
     public getElapsedMs(): number {
-        return Date.now() - this.startTime;
+        return Date.now() - this._startTime;
     }
+
     public getElapsedS(): number {
-        return (Date.now() - this.startTime) / 1000;
+        return (Date.now() - this._startTime) / 1000;
     }
 }
