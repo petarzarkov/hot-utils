@@ -52,10 +52,6 @@ const getCommitPkgV = (commit) => {
             return true;
         });
 
-        execSync("git add CHANGELOG.md");
-        execSync(`git commit -m "[branch|${branch}] changelog updated"`);
-        console.log(additionalChangelog);
-
 
         fs.writeFileSync("CHANGELOG.md", `### Changelog
 ---
@@ -71,6 +67,10 @@ ${Object.keys(ac).map(k => (`${[k]}: ${ac[k]}\n`)).toString().replace(/,/g, "")}
 }).toString().replace(/    ,/g, "")}
 `
     );
+
+    execSync("git add CHANGELOG.md");
+    execSync(`git commit -m "[branch|${branch}] changelog updated"`);
+    console.log(additionalChangelog);
     } catch (error) {
         console.log({ message: "Error on generating changelog", error });
     }
