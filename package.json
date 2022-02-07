@@ -27,7 +27,8 @@
     "bw": "npm run build -- --watch",
     "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src",
     "lint:fix": "npm run lint --fix",
-    "upVersion": "node ./scripts/updateVersion.js"
+    "version:update": "node ./scripts/updateVersion.js",
+    "gen:log": "node ./scripts/genLog.js"
   },
   "devDependencies": {
     "@types/config": "0.0.40",
