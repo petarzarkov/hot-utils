@@ -52,9 +52,9 @@ const getCommitPkgV = (commit) => {
             return true;
         });
 
-        // execSync("git add CHANGELOG.md");
-        // execSync(`git commit -m "[branch|${branch}] changelog updated"`);
-        // console.log(additionalChangelog);
+        execSync("git add CHANGELOG.md");
+        execSync(`git commit -m "[branch|${branch}] changelog updated"`);
+        console.log(additionalChangelog);
 
 
         fs.writeFileSync("CHANGELOG.md", `### Changelog
