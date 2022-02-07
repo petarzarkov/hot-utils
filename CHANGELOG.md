@@ -2,6 +2,20 @@
 ---
 
 
+- Add changelog to CI and filter CI commits
+```
+
+version: 1.1.5
+branch: add-changelog-to-ci
+commit: 50146c7677b8ba350a54af82d19a318902008fcf
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Mon Feb 7 10:49:51 2022 +0200
+subject: Add changelog to CI and filter CI commits
+message: Add-changelog-to-CI-and-filter-CI-commits
+
+```
+
 - add-changelog-and-ci
 ```
 
