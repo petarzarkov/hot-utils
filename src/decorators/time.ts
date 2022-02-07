@@ -9,11 +9,8 @@ type TimeOptions<I> = {
 };
 
 /**
- * Catches error
- * @param [opts] - provide only one of the options
- * @param handler - optional handler
- * @param defaultValue - optional default value to return on catching an error if no handler is specified, default null
- * @returns defaultValue or return value of handler
+ * Times method
+ * @param opts.handler - handler accepting starting and ending time
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function time<ClassInstance extends Object>(opts: TimeOptions<ClassInstance>) {
