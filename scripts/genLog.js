@@ -44,8 +44,15 @@ const getCommitPkgV = (commit) => {
                 ...log
             }
 
+        }).filter(l => {
+            if (l.subject.includes("[branch|") || l.message.includes("Merge")) {
+                return false;
+            }
+            return true;
         });
 
+        execSync("git add CHANGELOG.md");
+        execSync(`git commit -am "[branch|${branch}] changelog updated"`);
         console.log(additionalChangelog);
 
 
@@ -56,9 +63,9 @@ ${additionalChangelog.map(ac => {
     return `
 - ${ac.subject}
 \`\`\`
+
 ${Object.keys(ac).map(k => (`${[k]}: ${ac[k]}\n`)).toString().replace(/,/g, "")}
 \`\`\`
-
     `
 }).toString().replace(/    ,/g, "")}
 `
