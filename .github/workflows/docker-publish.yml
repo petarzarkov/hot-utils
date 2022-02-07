@@ -22,7 +22,7 @@ jobs:
     - name: npm install and build
       run: |
         npm install
-        npm run bnw
+        npm run slc
     - name: versioning
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"

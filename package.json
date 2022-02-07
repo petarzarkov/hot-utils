@@ -24,6 +24,7 @@
     "prebuild": "npm run clean",
     "clean": "tsc --build --clean",
     "build": "tsc -p tsconfig.json",
+    "slc": "tsc -p tsconfig.json --skipLibCheck",
     "bw": "npm run build -- --watch",
     "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src",
     "lint:fix": "npm run lint --fix",

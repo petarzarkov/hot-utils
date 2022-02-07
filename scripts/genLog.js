@@ -4,7 +4,8 @@ const fs = require("fs");
 
 const getCommitPkgV = (commit) => {
     try {
-        return JSON.parse(execSync(`git show "${commit}:package.json"`).toString())?.version || "unknown";
+        const pkgBuff = execSync(`git show "${commit}:package.json"`, { stdio: "pipe" });
+        return JSON.parse(pkgBuff.toString())?.version || "unknown";
     } catch (error) {
         return "unknown";
     }
@@ -51,9 +52,9 @@ const getCommitPkgV = (commit) => {
             return true;
         });
 
-        execSync("git add CHANGELOG.md");
-        execSync(`git commit -am "[branch|${branch}] changelog updated"`);
-        console.log(additionalChangelog);
+        // execSync("git add CHANGELOG.md");
+        // execSync(`git commit -m "[branch|${branch}] changelog updated"`);
+        // console.log(additionalChangelog);
 
 
         fs.writeFileSync("CHANGELOG.md", `### Changelog
