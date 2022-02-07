@@ -2,11 +2,67 @@
 ---
 
 
+- changelog-ci-fix-order-of-execution
+```
+
+version: 1.1.8
+branch: remotes/origin/main^2
+commit: 480879baa0e0f4f3758e9dd5082c0bccf74e589a
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Mon Feb 7 11:17:18 2022 +0200
+subject: changelog-ci-fix-order-of-execution
+message: changelog-ci-fix-order-of-execution
+
+```
+
+- add-changelog-in-publish-ci
+```
+
+version: 1.1.6
+branch: remotes/origin/main~2^2
+commit: c8478829ca8c5080c0fb42487561c28c4ad95c28
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Mon Feb 7 11:13:03 2022 +0200
+subject: add-changelog-in-publish-ci
+message: add-changelog-in-publish-ci
+
+```
+
+- skip lib check on build publish
+```
+
+version: 1.1.6
+branch: remotes/origin/main~4^2
+commit: 178e6606455fdd3b2aec7fb93d0489b1b4371c78
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Mon Feb 7 11:10:51 2022 +0200
+subject: skip lib check on build publish
+message: skip-lib-check-on-build-publish
+
+```
+
+- stdio pipe on getting pkg version
+```
+
+version: 1.1.6
+branch: remotes/origin/main~4^2~1
+commit: 599823da32fa78137f3c8bed3c1ea7bd19d3fbed
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Mon Feb 7 11:07:00 2022 +0200
+subject: stdio pipe on getting pkg version
+message: stdio-pipe-on-getting-pkg-version
+
+```
+
 - Add changelog to CI and filter CI commits
 ```
 
 version: 1.1.5
-branch: add-changelog-to-ci
+branch: remotes/origin/main~6^2
 commit: 50146c7677b8ba350a54af82d19a318902008fcf
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -20,7 +76,7 @@ message: Add-changelog-to-CI-and-filter-CI-commits
 ```
 
 version: 1.1.4
-branch: add-changelog-and-ci
+branch: remotes/origin/main~8^2
 commit: daf346cecbcfe38c5cb1371967295779e2dda945
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -34,7 +90,7 @@ message: add-changelog-and-ci
 ```
 
 version: 1.1.3
-branch: add-some-hot-decorators
+branch: remotes/origin/main~10^2
 commit: 325f74ac37b8090c39b048782985676cf8397936
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -48,7 +104,7 @@ message: fix-typedoc-for-time-decorator
 ```
 
 version: 1.1.3
-branch: add-some-hot-decorators~1
+branch: remotes/origin/main~10^2~1
 commit: fff7e692d5f7e32ad59f08d247e0d6ede9c487ef
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -62,7 +118,7 @@ message: add-some-hot-decorators
 ```
 
 version: 1.1.2
-branch: fix-window-check
+branch: remotes/origin/main~12^2
 commit: 446229ee4259015e933aa1d493591d9e3e1cd3e3
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -76,7 +132,7 @@ message: fix-window-check
 ```
 
 version: 1.1.1
-branch: export-expand-types
+branch: remotes/origin/main~14^2
 commit: 4b126add6df4a79200cd0dc6430a31c5b69e92ea
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -90,7 +146,7 @@ message: export-expand-types
 ```
 
 version: 1.1.0
-branch: export-expand-types~2^2
+branch: remotes/origin/main~16^2
 commit: ee34d8b01f79016aa017ac63fa7f50c97d0383b2
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -104,7 +160,7 @@ message: add-expand-rec-type-and-window-fetch-if-exists
 ```
 
 version: 1.0.9
-branch: revert-the-custom-parser
+branch: remotes/origin/main~18^2
 commit: 698f8e54a4a9421961cad51830517f63261c245d
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -118,7 +174,7 @@ message: revert-the-custom-parser
 ```
 
 version: 1.0.8
-branch: add-custom-log-parser-option
+branch: remotes/origin/main~20^2
 commit: a2ca1481309e207ddd6833de13102f750c3c7061
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -132,7 +188,7 @@ message: add-custom-log-parser-option
 ```
 
 version: 1.0.7
-branch: add-logging-support-in-requests
+branch: remotes/origin/main~22^2
 commit: d78b9f1b3459dc983087c24cbfb814e59911c746
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -146,7 +202,7 @@ message: add-logging-support-in-requests
 ```
 
 version: 1.0.6
-branch: add-static-params-contract
+branch: remotes/origin/main~24^2
 commit: 832dfed3c5150745d48a2aaf4ea326f2972b4b5b
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -160,7 +216,7 @@ message: add-static-params-contract
 ```
 
 version: 1.0.5
-branch: allow-any-log-message-format
+branch: remotes/origin/main~26^2
 commit: 781477b0ca8b7bb430663a4c458a051f50d8d387
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -174,7 +230,7 @@ message: allow-any-log-message-format
 ```
 
 version: 1.0.4
-branch: pass-display-name-directly
+branch: remotes/origin/main~28^2
 commit: 2bada8a308da57e8a7cebc2e25c87a310fa899b3
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -188,7 +244,7 @@ message: pass-display-name-directly
 ```
 
 version: 1.0.3
-branch: extend-hot-logger-with-filtering-and-serialization
+branch: remotes/origin/main~30^2
 commit: 57a70814461f27e1db1d8feec7ad9e2b67cc28e8
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -202,7 +258,7 @@ message: add-filtering-and-serialization
 ```
 
 version: 1.0.2
-branch: fix-in-logger
+branch: remotes/origin/main~32^2
 commit: e04c5951a079b588fb192cf0273d9671b577e526
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -216,7 +272,7 @@ message: fix-in-logger
 ```
 
 version: 1.0.1
-branch: refactor-to-hot-utils
+branch: remotes/origin/main~34^2
 commit: c0b32bac2af75afcbcba136b316041ad725c845f
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -230,7 +286,7 @@ message: refactor-to-hot-utils
 ```
 
 version: 1.0.1
-branch: refactor-to-hot-utils~1
+branch: remotes/origin/main~34^2~1
 commit: d16d77b9d0c6f6127dccf26a83b0c7b668ea0676
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -244,7 +300,7 @@ message: refactor-to-hot-utils
 ```
 
 version: 1.0.0
-branch: add-missed-exports
+branch: remotes/origin/main~36^2
 commit: c672700d5cc7760788b8808d40c0c24a45a8b744
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -258,7 +314,7 @@ message: add-missed-exports
 ```
 
 version: 0.9.9
-branch: rehot-again
+branch: remotes/origin/main~38^2
 commit: e86829b1e85a8d5b19821c90be4587053ed37df3
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -272,7 +328,7 @@ message: rehot-again
 ```
 
 version: 0.1.0
-branch: rehot-again~1
+branch: remotes/origin/main~39
 commit: d3cb9dbaed1e54822587614cbdd5f04a51f4d3f0
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -286,7 +342,7 @@ message: remove-from-main
 ```
 
 version: 0.1.0
-branch: rehot-again~2
+branch: remotes/origin/main~40
 commit: e3f0ec01193abb7c482cfd5a531186f47f16e86a
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -300,7 +356,7 @@ message: update-npm-package-name
 ```
 
 version: 0.0.9
-branch: refactor-to-more-oop
+branch: remotes/origin/main~42^2
 commit: 0d478b176e0e3876db51a18d36871146887757c5
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -314,7 +370,7 @@ message: refactor-to-more-oop
 ```
 
 version: 0.0.9
-branch: refactor-to-more-oop~1
+branch: remotes/origin/main~43
 commit: 2601f39599d0968490d1f938b275ea521bc6bee2
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -328,7 +384,7 @@ message: upgrade-node-fetch
 ```
 
 version: 0.0.8
-branch: refactor-to-more-oop~3
+branch: remotes/origin/main~45
 commit: eeaac1bdc4adf39c8113478670f4fba55d6cea14
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -342,7 +398,7 @@ message: add-ObjUtils
 ```
 
 version: 0.0.8
-branch: MYJIRA-2943-cant-let-you-go
+branch: remotes/origin/main~45^2
 commit: a5bd2a5f7a4b839ab04b970c5257f50553794396
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -356,7 +412,7 @@ message: MYJIRA-2943-cant-let-you-go
 ```
 
 version: 0.0.7
-branch: some-more-fixes
+branch: remotes/origin/main~47^2
 commit: 99bf1d96156a97c2f088f8871a58a467532bff51
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -370,7 +426,7 @@ message: some-more-fixes
 ```
 
 version: 0.0.6
-branch: some-logger-fixes-and-documentation
+branch: remotes/origin/main~49^2
 commit: 84ec0c35df26056eca3ddae4ce68e087368f0dec
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -384,7 +440,7 @@ message: some-logger-fixes-and-documentation
 ```
 
 version: 0.0.5
-branch: some-additions
+branch: remotes/origin/main~51^2
 commit: 4ee2126ad6730ba5a8d426bfc55f45d38bcb9af0
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -398,7 +454,7 @@ message: add-logging
 ```
 
 version: 0.0.5
-branch: some-additions~1
+branch: remotes/origin/main~51^2~1
 commit: a6eae8af6f25c400146d6fe279657bb54b7e4766
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -412,7 +468,7 @@ message: add-http-response-parser
 ```
 
 version: 0.0.4
-branch: fix-docker-publish-and-run-codeql-only-cron
+branch: remotes/origin/main~53^2
 commit: 81ba0b17a158b0680d8cc429c6b9e97589f17035
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -426,7 +482,7 @@ message: fix-docker-publish-and-run-codeql-only-cron
 ```
 
 version: 0.0.4
-branch: on-pr-target-add
+branch: remotes/origin/main~54^2
 commit: 6c2594fa42dd5c62e06f99f4ffecbb7a5683cebc
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -440,7 +496,7 @@ message: on-pr-target-add
 ```
 
 version: 0.0.4
-branch: on-pr-target-add~1
+branch: remotes/origin/main~55
 commit: b66f0436c3b700b65515921ec7529c52791c3704
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -454,7 +510,7 @@ message: Create-codeql-analysis.yml
 ```
 
 version: 0.0.4
-branch: remotes/origin/petarzarkov-patch-3
+branch: remotes/origin/main~56^2
 commit: 42f708d267b08aa93d18167ffa26edfe721dd67c
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -468,7 +524,7 @@ message: Update-docker-publish.yml
 ```
 
 version: 0.0.4
-branch: remotes/origin/petarzarkov-patch-2
+branch: remotes/origin/main~57^2
 commit: e9fdbcad0ec1e7e8db4f16e9a0d68cc9be75667c
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -482,7 +538,7 @@ message: Update-docker-publish.yml
 ```
 
 version: 0.0.4
-branch: trigger-npm-publish-only-on-pr-merge
+branch: remotes/origin/main~58^2
 commit: ac7913022e86f7f883daad761847c11621ecfa46
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -496,7 +552,7 @@ message: trigger-npm-publish-only-on-pr-merge
 ```
 
 version: 0.0.4
-branch: remotes/origin/petarzarkov-patch-1
+branch: remotes/origin/main~59^2
 commit: dee882d49586c235f14942ab287caab9a2b0f8b6
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -510,7 +566,7 @@ message: Update-docker-publish.yml
 ```
 
 version: 0.0.4
-branch: remotes/origin/petarzarkov-patch-1~1
+branch: remotes/origin/main~60
 commit: ecfe72d901df1bdd33f25833bbca3366e0f0621e
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -524,7 +580,7 @@ message: test-publish-new-version
 ```
 
 version: 0.0.4
-branch: test-publish-new-version
+branch: remotes/origin/main~60^2
 commit: 40652106b9b6e8a4ab425d3e4c4dc9924f5451f3
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -538,7 +594,7 @@ message: build-on-push-only
 ```
 
 version: 0.0.4
-branch: test-publish-new-version~1
+branch: remotes/origin/main~60^2~1
 commit: 3a54186b0fb397e15793e624a35cb653fccdfef5
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -552,7 +608,7 @@ message: test-publish-new-version
 ```
 
 version: 0.0.4
-branch: test-publish-new-version~2
+branch: remotes/origin/main~61
 commit: 7dd894bd62abb90e5fa1439b8e92672b6fbf4d20
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -566,7 +622,7 @@ message: trigger-build-on-push-and-PR
 ```
 
 version: 0.0.4
-branch: test-publish-new-version~3
+branch: remotes/origin/main~62
 commit: 4d12b91688cb15827876d234f957dcbc27ad97b4
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -580,7 +636,7 @@ message: Update-docker-publish.yml
 ```
 
 version: 0.0.4
-branch: test-publish-new-version~4
+branch: remotes/origin/main~63
 commit: 55935d9ce22e9992d91fe0821b5e32ec6c50e4b5
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -594,7 +650,7 @@ message: extend-github-flows
 ```
 
 version: 0.0.3
-branch: test-publish-new-version~6
+branch: remotes/origin/main~65
 commit: 2056f73161a52bbe0dec367524c018bf66d030ac
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -608,7 +664,7 @@ message: update-versioning-and-UrlUtils
 ```
 
 version: 0.0.3
-branch: tags/v0.0.4~1
+branch: remotes/origin/main~66
 commit: 9f810fa861170f82d3b51d99cc12973040315920
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -622,7 +678,7 @@ message: add-versioning
 ```
 
 version: 0.0.3
-branch: tags/v0.0.4~2
+branch: remotes/origin/main~67
 commit: 9c8fda40a8f87859bab915f05ab2375775c284c2
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -636,7 +692,7 @@ message: fixeronis
 ```
 
 version: 0.0.3
-branch: tags/v0.0.4~3
+branch: remotes/origin/main~68
 commit: 99ca8007d537d398e3bd1383729797137cfde007
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -650,7 +706,7 @@ message: Update-docker-publish.yml
 ```
 
 version: 0.0.3
-branch: tags/v0.0.4~4
+branch: remotes/origin/main~69
 commit: 86b68f3a2508bfea6af67c588771cc157e1c9f47
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
@@ -664,7 +720,7 @@ message: Create-docker-publish.yml
 ```
 
 version: 0.0.3
-branch: tags/v0.0.4~5
+branch: remotes/origin/main~70
 commit: 52f1643866d76076cc5bfa5dfde12168ed1cb858
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -678,7 +734,7 @@ message: adjust-docker-for-publish
 ```
 
 version: 0.0.2
-branch: tags/v0.0.4~6
+branch: remotes/origin/main~71
 commit: 284a7605222c4875601cdf2591588425fc15d174
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -692,7 +748,7 @@ message: update-pkg-version
 ```
 
 version: 0.0.1
-branch: tags/v0.0.4~7
+branch: remotes/origin/main~72
 commit: a5b076e6da6d51519098923df7f1c490745c5d09
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -706,7 +762,7 @@ message: add-compose-and-some-more-info
 ```
 
 version: 0.0.1
-branch: tags/v0.0.4~8
+branch: remotes/origin/main~73
 commit: 27f41a046141b5bb714e0a1d762755047dfefc61
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -720,7 +776,7 @@ message: add-npm-publish-stuff
 ```
 
 version: 0.0.1
-branch: tags/v0.0.4~9
+branch: remotes/origin/main~74
 commit: 205119229b4f2f5fe637c2c2434dddcac9be6d3e
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -734,7 +790,7 @@ message: Add-some-hot-stuff
 ```
 
 version: 1.0.0
-branch: tags/v0.0.4~10
+branch: remotes/origin/main~75
 commit: 6901ce185f52f9de4db2e6756d837a1200a629dc
 authorName: Petar Zarkov
 authorEmail: p.zarkov@draftkings.com
@@ -748,7 +804,7 @@ message: Add-initial-infra
 ```
 
 version: unknown
-branch: tags/v0.0.4~11
+branch: remotes/origin/main~76
 commit: 1a060bd57871109dbc00f148f49266246ef15824
 authorName: Petar Zarkov
 authorEmail: 46219231+petarzarkov@users.noreply.github.com
