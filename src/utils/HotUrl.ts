@@ -64,7 +64,7 @@ export class HotUrl {
         }
 
         if (path && path.startsWith("/")) {
-            path = path.substr(1);
+            path = path.substring(1);
         }
 
         return path ? new URL(path, baseUrl) : new URL(baseUrl);

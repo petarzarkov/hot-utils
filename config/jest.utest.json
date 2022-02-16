@@ -1,0 +1,33 @@
+{
+  "preset": "ts-jest",
+  "globals": {
+    "ts-jest": {
+      "tsconfig": "./tests/tsconfig.json"
+    }
+  },
+  "collectCoverage": false,
+  "coverageThreshold": {
+    "global": {
+      "branches": 28,
+      "functions": 34,
+      "lines": 48,
+      "statements": 48
+    }
+  },
+  "collectCoverageFrom": [
+    "src/**/*.ts"
+  ],
+  "coveragePathIgnorePatterns": [
+  ],
+  "rootDir": "../",
+  "testRegex": ".\/tests\/.*.test.ts$",
+  "transform": {
+    ".(ts|tsx)": "ts-jest"
+  },
+  "transformIgnorePatterns": ["^.+\\.js$"],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js"
+  ]
+}

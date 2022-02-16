@@ -1,22 +1,15 @@
 import fetch, { Response, RequestInit } from "node-fetch";
-import { AbortController as AbortControllerNpm } from "abort-controller";
-import { StatusCodes } from "http-status-codes";
 import { HotWatch } from "../hotWatch";
 import { HttpMethods, HttpRequest, HttpResponse } from "../../contracts";
 import { HotUrl } from "../../utils";
-import { DEFAULT_HTTP_TIMEOUT } from "../../constants";
+import { HOT_DEFAULT_HTTP_TIMEOUT } from "../../constants";
 import { ExpandRecursively } from "../../contracts/Expand";
 
 export class HotRequests {
-    public static localFetch = typeof window !== "undefined" && window.fetch ? window.fetch as unknown as typeof fetch : fetch;
-    public static get AC() {
-        return globalThis?.AbortController || AbortControllerNpm;
-    }
-
     public static async fetch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest> & { method: `${HttpMethods}` }): Promise<HttpResponse<TResponse>> {
         const { options, payload, url: baseUrl, method = HttpMethods.GET } = req;
-        const { headers, queryParams, pathParams, timeout = DEFAULT_HTTP_TIMEOUT, path, logger, eventName, requestId } = options || {};
-        const controller = new this.AC();
+        const { headers, queryParams, pathParams, timeout = HOT_DEFAULT_HTTP_TIMEOUT, path, logger, eventName, requestId } = options || {};
+        const controller = new AbortController();
         const timeoutFetch = setTimeout(() => {
             controller.abort();
         }, timeout);
@@ -28,6 +21,7 @@ export class HotRequests {
             queryParams
         });
 
+        const event = eventName || url.substring(url.lastIndexOf("/"));
         const requestOptions: RequestInit = {
             headers: method === HttpMethods.GET ? { Accept: "application/json" } : { "Content-Type": "application/json" },
             signal: controller.signal,
@@ -43,30 +37,52 @@ export class HotRequests {
             requestOptions.headers = { ...requestOptions.headers, ...headers };
         }
 
-        if (logger) logger.info(`Sending ${eventName || method} request`, { requestId, eventName, url, data: { request: payload } });
+        if (logger) logger.info("Sending request", { requestId, method, event, url, data: { request: payload } });
         const hw = new HotWatch();
         let rawResponse: Response | undefined;
         try {
-            rawResponse = await this.localFetch(url, requestOptions);
+            rawResponse = await fetch(url, requestOptions);
             const response = await this.parseResponse(rawResponse) as ExpandRecursively<TResponse>;
             if (!rawResponse.ok) {
-                const message = `Hot ${method} request not successful`;
-                if (logger) logger.warn(message, { requestId, eventName, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status } });
-                return { isGood: false, error: message, statusCode: rawResponse.status, response, elapsed: hw.getElapsedMs() };
+                const message = "Request unsuccessful";
+                if (logger) {
+                    logger.warn(message, {
+                        requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
+                    });
+                }
+                return {
+                    isGood: false,
+                    error: message,
+                    stack: new Error().stack,
+                    statusCode: rawResponse.status,
+                    response,
+                    elapsed: hw.getElapsedMs()
+                };
             }
 
             if (logger) {
-                logger.info(`${eventName || method} successful response`, {
-                    requestId, eventName, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
+                logger.info("Request successful", {
+                    requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
                 });
             }
-            return { isGood: true, statusCode: rawResponse.status || StatusCodes.OK, response, elapsed: hw.getElapsedMs() };
+            return {
+                isGood: true,
+                statusCode: rawResponse.status || 200,
+                response,
+                elapsed: hw.getElapsedMs()
+            };
         } catch (err) {
-            const message = `Hot ${method} request not successful`;
+            const message = (err as Error)?.message === "The operation was aborted" ? "Request timed out" : "Request unsuccessful";
             if (logger) {
-                logger.error(message, { requestId, eventName, err: <Error>err, url, duration: hw.getElapsedMs(), data: { request: payload, statusCode: rawResponse?.status, rawResponse } });
+                logger.error(message, { requestId, method, event, err: <Error>err, url, duration: hw.getElapsedMs(), data: { request: payload, statusCode: rawResponse?.status, rawResponse } });
             }
-            return { isGood: false, error: (err as Error)?.message || message, statusCode: rawResponse?.status || StatusCodes.INTERNAL_SERVER_ERROR, elapsed: hw.getElapsedMs() };
+            return {
+                isGood: false,
+                error: (err as Error)?.message || message,
+                stack: (err as Error)?.stack || new Error().stack,
+                statusCode: rawResponse?.status || 500,
+                elapsed: hw.getElapsedMs()
+            };
         } finally {
             clearTimeout(timeoutFetch);
         }
@@ -74,16 +90,18 @@ export class HotRequests {
     }
 
     public static parseResponse = async <Res>(response: Response) => {
-        let resT: string | undefined;
-        let resJ: Res;
+        const parsed: { responseText: string | null; responseJson: Res | null } = {
+            responseText: null,
+            responseJson: null
+        };
         try {
-            resT = await response.text();
-            resJ = JSON.parse(resT) as unknown as Res;
+            parsed.responseText = await response.text();
+            parsed.responseJson = JSON.parse(parsed.responseText) as unknown as Res;
         } catch (error) {
-            return resT || response.statusText;
+            return parsed.responseText || response.statusText;
         }
 
-        return resJ as unknown as Res;
+        return parsed.responseJson as unknown as Res;
     };
 
     public static head<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest>) {

@@ -10,6 +10,7 @@ export type HttpSuccessResponse<T> = {
 export type HttpErrorResponse<T> = {
     isGood: false;
     error: string;
+    stack?: string;
     elapsed: number;
     statusCode: number;
     response?: T;

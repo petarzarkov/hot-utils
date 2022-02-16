@@ -4,6 +4,9 @@ various NodeJS utils with type definition inference
 ## Install
 `npm install hot-utils`
 
+## Requirements
+- NodeJS version >= `v15.4.0`
+
 ## Table of Contents
 - 💨 [HotRequests](#HotRequests)
 - ⏲ [HotWatch](#HotWatch)

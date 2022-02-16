@@ -22,6 +22,7 @@
         "watch": false,
         "baseUrl": ".",
         "pretty": true,
+        "incremental": true,
         "outDir": "hot-utils"
     },
     "include": [
