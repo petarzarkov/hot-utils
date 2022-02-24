@@ -1,3 +1,5 @@
+import { Expand } from "../contracts";
+
 export class HotObj {
     /**
      * Determines if an object has a property
@@ -26,19 +28,16 @@ export class HotObj {
      * @param {Record<PropertyKey, unknown>} obj any object
      * @param {Array<PropertyKey>} keys any array of string | number | symbol
      */
-    public static strip<X, Y extends keyof X>(obj: X, keys: Y[]): Partial<X> {
-        const strippedObj: Partial<X> = {};
-        for (const key of keys) {
-            if (strippedObj[key]) {
-                continue;
-            }
+    public static extract<X, Y extends keyof X>(obj: X, keys: Y[]): Expand<Pick<X, Y>> {
+        const newRef = { ...obj };
 
-            if (obj[key]) {
-                strippedObj[key] = obj[key];
+        return Object.keys(newRef).reduce((prev, curr) => {
+            const asKey = curr as Y;
+            if (keys.includes(asKey)) {
+                (prev as Partial<X>)[asKey] = newRef[asKey];
             }
-        }
-
-        return strippedObj;
+            return prev;
+        }, {} as Expand<Pick<X, Y>>);
     }
 
     /**

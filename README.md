@@ -187,8 +187,28 @@ const a = { 1: "one", "one": 1 };
 const b = { 1: "one", "one": 1 };
 
 HotObj.shallowEquals(a, b); // true
-HotObj.strip(a, [1, 1]); // { '1': 'one' }
-HotObj.strip(a, [1, 2]); // Type '2' is not assignable to type '"one" | 1'.
+
+const someObj = {
+    prop: "val",
+    propTwo: "val2",
+    propThree: "val3"
+};
+const result = HotObj.extract(someObj, ["propTwo", "propThree"]);; // { propTwo: "val2", propThree: "val3" }
+
+// Type def for extract is inferred
+(method) HotObj.extract<{
+    prop: string;
+    propTwo: string;
+    propThree: string;
+}, "propTwo" | "propThree">(obj: {
+    prop: string;
+    propTwo: string;
+    propThree: string;
+}, keys: ("propTwo" | "propThree")[]): {
+    propTwo: string;
+    propThree: string;
+}
+
 HotObj.hasProp(a, 1); // true
 HotObj.hasProp(a, "one"); // true
 HotObj.getValue(a, "one"); // 1

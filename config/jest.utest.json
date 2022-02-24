@@ -8,16 +8,19 @@
   "collectCoverage": false,
   "coverageThreshold": {
     "global": {
-      "branches": 28,
-      "functions": 34,
-      "lines": 48,
-      "statements": 48
+      "branches": 60,
+      "functions": 65,
+      "lines": 80,
+      "statements": 80
     }
   },
   "collectCoverageFrom": [
     "src/**/*.ts"
   ],
   "coveragePathIgnorePatterns": [
+    "src/constants.ts",
+    "src/decorators",
+    "src/utils/HotPromise.ts"
   ],
   "rootDir": "../",
   "testRegex": ".\/tests\/.*.test.ts$",

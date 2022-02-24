@@ -2,7 +2,7 @@ module.exports = {
     appName: "hot-utils",
     defaultHttpTimeout: 10000,
     log: {
-        level: "DEBUG",
+        level: "TRACE",
         filters: [{
             key: "event",
             values: [
