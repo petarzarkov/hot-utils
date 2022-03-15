@@ -11,11 +11,11 @@ export interface IBaseOptions extends Partial<RequestInit> {
     queryParams?: ParamsType;
     requestId?: string;
     eventName?: string;
-    logger?: IHotLogger | typeof console;
+    logger?: IHotLogger | Console;
 }
 
 export type HttpRequest<TRequest extends Record<string | number, unknown>> = {
     url: string;
     payload?: TRequest;
-    options: IBaseOptions;
+    options?: IBaseOptions;
 };

@@ -7,3 +7,4 @@ local.js
 .idea
 coverage
 cache
+.vscode
