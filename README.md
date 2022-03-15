@@ -1,6 +1,6 @@
 # 🔥 Hot Utils 🔥
 
-various NodeJS utils with type definition inference
+various JavaScript utils with type definition inference
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install hot-utils
 
 ## Accessibility
 
-- Usable on both Browser and Server
+- Usable on both Browser and Node
 
 ## Requirements
 
