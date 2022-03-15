@@ -1,4 +1,4 @@
-import fetch, { Response, RequestInit } from "node-fetch/@types";
+import fetch, { Response, RequestInit } from "node-fetch";
 import { HotWatch } from "../hotWatch";
 import { HttpMethods, HttpRequest, HttpResponse, ExpandRecursively } from "../../contracts";
 import { HotUrl, HotObj } from "../../utils";
@@ -6,8 +6,6 @@ import { HOT_DEFAULT_HTTP_TIMEOUT } from "../../constants";
 import { ErrorParams } from "../hotLogger";
 
 export class HotRequests {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    private static localFetch = (typeof window !== "undefined" && window.fetch ? window.fetch : require("node-fetch")) as unknown as typeof fetch;
     public static async fetch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest> & { method: `${HttpMethods}` }): Promise<HttpResponse<TResponse>> {
         const { options, payload, url: baseUrl, method = HttpMethods.GET } = req;
         const { headers, queryParams, pathParams, timeout = HOT_DEFAULT_HTTP_TIMEOUT, path, logger, eventName, requestId } = options || {};
@@ -45,7 +43,7 @@ export class HotRequests {
         const hw = new HotWatch();
         let rawResponse: Response | undefined;
         try {
-            rawResponse = await this.localFetch(url, requestOptions);
+            rawResponse = await fetch(url, requestOptions);
             const response = await this.parseResponse(rawResponse) as ExpandRecursively<TResponse>;
             if (!rawResponse.ok) {
                 const message = "Request unsuccessful";
