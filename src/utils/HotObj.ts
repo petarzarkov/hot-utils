@@ -87,4 +87,13 @@ export class HotObj {
         return obj;
     }
 
+    /**
+     * Removes properties with values: undefined, null, NaN
+     * @param obj object to remove nullable properties from
+     * @returns the same object without undefined, null, NaN properties
+     */
+    public static cleanUpNullablesDeep<Nullable extends Record<PropertyKey, unknown>>(obj: Nullable): NonNullable<Partial<Nullable>> {
+        return JSON.parse(JSON.stringify(obj)) as NonNullable<Partial<Nullable>>;
+    }
+
 }

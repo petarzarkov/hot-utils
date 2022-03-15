@@ -1,25 +1,21 @@
 import { HotLogger, HotRequests } from "../../../src";
+import fetch from "node-fetch";
 
 const fetchFixture = {
     ok: true,
     status: 200,
-    textFixture: jest.fn(async () => JSON.stringify({
+    text: async () => JSON.stringify({
         valid: "res"
-    }))
+    })
 };
 
-jest.mock("node-fetch", () => {
-    return {
-        __esModule: true,
-        default: jest.fn(() => ({
-            ok: fetchFixture.ok,
-            status: fetchFixture.status,
-            text: fetchFixture.textFixture
-        }))
-    }
-});
+jest.mock("node-fetch");
 
 describe("HotRequests Test Suite", () => {
+    beforeEach(() => {
+        (fetch as unknown as jest.Mock).mockImplementation(() => fetchFixture);
+    });
+
     it("Should return successful response and log", async () => {
         const localLogger = HotLogger.createLogger("test-requests");
 

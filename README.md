@@ -1,13 +1,23 @@
 # 🔥 Hot Utils 🔥
+
 various NodeJS utils with type definition inference
 
 ## Install
-`npm install hot-utils`
+
+```bash
+npm install hot-utils
+```
+
+## Accessibility
+
+- Usable on both Browser and Server
 
 ## Requirements
-- NodeJS version >= `v15.4.0`
+
+- If on Node Environment -> NodeJS version >= `v15.4.0`
 
 ## Table of Contents
+
 - 💨 [HotRequests](#HotRequests)
 - ⏲ [HotWatch](#HotWatch)
 - ⚙️ [HotUrl](#HotUrl)
@@ -19,7 +29,9 @@ various NodeJS utils with type definition inference
 <br />
 
 ## 💨 HotRequests <a name="HotRequests"></a>
+
 ### Supports all http methods
+
 ---
 
 <br />
@@ -54,10 +66,10 @@ import { HotRequests } from "hot-utils";
     statusCode: 500,
     elapsed: 322
   }
-
-
 ```
+
 #### Response is one of the two:
+
 ```ts
 type HttpSuccessResponse<T> = {
     isGood: true;
@@ -74,10 +86,12 @@ type HttpErrorResponse<T> = {
     response?: T;
 };
 ```
+
 <br />
 
 ## ⏲️ HotWatch <a name="HotWatch"></a>
 ### For timing
+
 ---
 <br />
 

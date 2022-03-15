@@ -1,11 +1,13 @@
-import fetch, { Response, RequestInit } from "node-fetch";
+import fetch, { Response, RequestInit } from "node-fetch/@types";
 import { HotWatch } from "../hotWatch";
-import { HttpMethods, HttpRequest, HttpResponse } from "../../contracts";
-import { HotUrl } from "../../utils";
+import { HttpMethods, HttpRequest, HttpResponse, ExpandRecursively } from "../../contracts";
+import { HotUrl, HotObj } from "../../utils";
 import { HOT_DEFAULT_HTTP_TIMEOUT } from "../../constants";
-import { ExpandRecursively } from "../../contracts/Expand";
+import { ErrorParams } from "../hotLogger";
 
 export class HotRequests {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    private static localFetch = (typeof window !== "undefined" && window.fetch ? window.fetch : require("node-fetch")) as unknown as typeof fetch;
     public static async fetch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest> & { method: `${HttpMethods}` }): Promise<HttpResponse<TResponse>> {
         const { options, payload, url: baseUrl, method = HttpMethods.GET } = req;
         const { headers, queryParams, pathParams, timeout = HOT_DEFAULT_HTTP_TIMEOUT, path, logger, eventName, requestId } = options || {};
@@ -37,18 +39,20 @@ export class HotRequests {
             requestOptions.headers = { ...requestOptions.headers, ...headers };
         }
 
-        if (logger) logger.info("Sending request", { requestId, method, event, url, data: { request: payload } });
+        if (logger) {
+            logger.info("Sending request", HotObj.cleanUpNullablesDeep({ requestId, method, event, url, data: { request: payload } }));
+        }
         const hw = new HotWatch();
         let rawResponse: Response | undefined;
         try {
-            rawResponse = await fetch(url, requestOptions);
+            rawResponse = await this.localFetch(url, requestOptions);
             const response = await this.parseResponse(rawResponse) as ExpandRecursively<TResponse>;
             if (!rawResponse.ok) {
                 const message = "Request unsuccessful";
                 if (logger) {
-                    logger.warn(message, {
+                    logger.warn(message, HotObj.cleanUpNullablesDeep({
                         requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
-                    });
+                    }));
                 }
                 return {
                     isGood: false,
@@ -61,9 +65,9 @@ export class HotRequests {
             }
 
             if (logger) {
-                logger.info("Request successful", {
+                logger.info("Request successful", HotObj.cleanUpNullablesDeep({
                     requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
-                });
+                }));
             }
             return {
                 isGood: true,
@@ -74,7 +78,15 @@ export class HotRequests {
         } catch (err) {
             const message = (err as Error)?.message === "The operation was aborted" ? "Request timed out" : "Request unsuccessful";
             if (logger) {
-                logger.error(message, { requestId, method, event, err: <Error>err, url, duration: hw.getElapsedMs(), data: { request: payload, statusCode: rawResponse?.status, rawResponse } });
+                logger.error(message, HotObj.cleanUpNullablesDeep({
+                    requestId,
+                    method,
+                    event,
+                    err: <Error>err,
+                    url,
+                    duration: hw.getElapsedMs(),
+                    data: { request: payload, statusCode: rawResponse?.status, rawResponse }
+                }) as ErrorParams);
             }
             return {
                 isGood: false,
