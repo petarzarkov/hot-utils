@@ -2,6 +2,11 @@
 
 various NodeJS utils with type definition inference
 
+## npm pkg
+
+[hot-utils](https://www.npmjs.com/package/hot-utils)
+
+
 ## Install
 
 ```bash
