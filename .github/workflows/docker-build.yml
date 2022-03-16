@@ -11,11 +11,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '15.4.0'
-    - name: npm install
+    - name: Install
       run: npm install
-    - name: npm lint
+    - name: Lint
       run: npm run lint
-    - name: npm build
-      run: npm run bnw
-    - name: npm tests
+    - name: Build
+      run: npm run build
+    - name: Test
       run: npm run test:coverage

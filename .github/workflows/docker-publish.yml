@@ -19,10 +19,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.18.0'
-    - name: npm install and build
+    - name: Install and speed Build
       run: |
         npm install
-        npm run slc
+        npm run build:speed
     - name: versioning
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
