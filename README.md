@@ -20,12 +20,12 @@ npm install hot-utils
 
 <!-- TOC -->
 
-- [HotRequests](#requests)
-- [HotWatch](#watch)
-- [HotUrl](#url)
-- [HotLogger](#logger)
-- [HotObj](#obj)
-- [HotPromise](#promise)
+- [HotRequests](#hotrequests)
+- [HotWatch](#hotwatch)
+- [HotUrl](#hoturl)
+- [HotLogger](#hotlogger)
+- [HotObj](#hotobj)
+- [HotPromise](#hotpromise)
 - [Languages and tools](#languages-and-tools)
 
 <!-- /TOC -->
