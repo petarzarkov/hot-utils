@@ -1,4 +1,4 @@
-import { ExpandRecursively } from "../Expand";
+import { ExpandRecursively } from "../utilities";
 
 export type HttpSuccessResponse<T> = {
     isGood: true;
