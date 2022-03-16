@@ -1,4 +1,4 @@
-import { OneOrOther } from "../contracts/OneOrOther";
+import { OneOrOther } from "../contracts";
 
 type TrapOptions<I> = OneOrOther<{
     /**
