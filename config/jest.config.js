@@ -30,6 +30,7 @@ module.exports = {
   transformIgnorePatterns: ["^.+\\.js$"],
   moduleFileExtensions: [
     "ts",
-    "tsx"
+    "tsx",
+    "js"
   ]
 }
