@@ -1,12 +1,7 @@
 import { IConfig } from "config";
+import { optionalImport } from "./utils";
 
-export let config: IConfig | null;
-try {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    config = require("config");
-} catch (error) {
-    config = null;
-}
+export const config = optionalImport<IConfig>("config");
 
 export const VERSION = process.env.npm_package_version;
 export const APP_NAME: string = process.env.APP_NAME || process.env.npm_package_name || (config?.has("appName") ? config.get("appName") : "hot-utils");

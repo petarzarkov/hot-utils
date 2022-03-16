@@ -1,9 +1,20 @@
 <div align="center">
     <h1>🔥 Hot Utils 🔥</h1>
 	<p>Various NodeJS utils with type definition inference</p>
-	<a href="https://github.com/petarzarkov/hotstuff/actions/"><img src="https://github.com/petarzarkov/hotstuff/actions/workflows/docker-build.yml/badge.svg?branch=main" alt="Build status"></a>
+	<a href="https://github.com/petarzarkov/hotstuff/actions/"><img src="https://github.com/petarzarkov/hotstuff/actions/workflows/docker-build.yml/badge.svg?branch=main" alt="Build status""></a>
 	<a href="https://packagephobia.now.sh/result?p=hot-utils"><img src="https://badgen.net/packagephobia/install/hot-utils" alt="Current version"></a>
 	<a href="https://www.npmjs.com/package/hot-utils"><img src="https://img.shields.io/npm/v/hot-utils" alt="Install size"></a>
+	<a href="https://github.com/petarzarkov/hotstuff/blob/main/LICENSE"><img src="https://img.shields.io/github/license/petarzarkov/hotstuff" alt="License"></a>
+    <p>Stack</p>
+    <a href="https://www.javascript.com/"><img title="JavaScript" alt="JavaScript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/javascript.svg" /></a>
+    <a href="https://www.typescriptlang.org/"><img title="Typescript" alt="Typescript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/typescript-icon.svg" /></a>
+    <a href="https://nodejs.org/en/"><img title="NodeJS" alt="NodeJS" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/nodejs-icon.svg" /></a>
+    <a href="https://www.docker.com/"><img title="Docker" alt="Docker" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/docker-icon.svg" /></a>
+    <a href="https://github.com/" title="Github"><img src="https://github.com/get-icon/geticon/raw/master/icons/github-icon.svg" alt="Github" width="26px" height="26px" style="background-color: white; border-radius: 12px"></a>
+    <a href="https://code.visualstudio.com/" title="Visual Studio Code"><img src="https://github.com/get-icon/geticon/raw/master/icons/visual-studio-code.svg" alt="Visual Studio Code" width="26px" height="26px"></a>
+    <a href="https://www.npmjs.com/" title="npm"><img src="https://github.com/get-icon/geticon/raw/master/icons/npm.svg" alt="npm" width="26px" height="26px"></a>
+    <a href="https://jestjs.io/" title="Jest"><img src="https://github.com/get-icon/geticon/raw/master/icons/jest.svg" alt="Jest" width="26px" height="26px"></a>
+    <a href="https://eslint.org/" title="ESLint"><img src="https://github.com/get-icon/geticon/raw/master/icons/eslint.svg" alt="ESLint" width="26px" height="26px"></a>
 </div>
 
 ## Install
@@ -26,12 +37,12 @@ npm install hot-utils
 - [HotLogger](#hotlogger)
 - [HotObj](#hotobj)
 - [HotPromise](#hotpromise)
-- [Languages and tools](#languages-and-tools)
 
 <!-- /TOC -->
 <br />
 
 ## HotRequests
+### [Top](#table-of-contents)
 
 ### Supports all http methods
 
@@ -92,7 +103,8 @@ type HttpErrorResponse<T> = {
 
 <br />
 
-## ⏲️ HotWatch
+## HotWatch
+### [Top](#table-of-contents)
 ### For timing
 
 ---
@@ -112,6 +124,7 @@ myWatch.getElapsedS(); // elapsed seconds since construction
 <br />
 
 ## HotUrl
+### [Top](#table-of-contents)
 ### Build your URL from an already existing URL or a string with optional query params
 ---
 <br />
@@ -149,6 +162,7 @@ HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 <br />
 
 ## HotLogger
+### [Top](#table-of-contents)
 ### Log all you need
 ---
 <br />
@@ -193,6 +207,7 @@ myLogger.error("Some err msg", { err: new Error("Test err"), data: { smh: "ye"},
 
 
 ## HotObj
+### [Top](#table-of-contents)
 ### Object utils
 ---
 <br />
@@ -252,12 +267,13 @@ HotObj.cleanUpNullables(nullableObj); // { thisIsFine: 1 }
 <br />
 
 ## HotPromise
+### [Top](#table-of-contents)
 ### Promise utils
 ---
 <br />
 
 ```ts
-import { HotPromise } from "./utils";
+import { HotPromise } from "hot-utils";
 
 // Results in
 // {
@@ -293,13 +309,3 @@ const runTillSuccess = async () => {
 };
 
 ```
-
-<br />
-
-## Languages and Tools
----
-[<img align="left" title="Visual Studio Code" alt="vsCode" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />](https://code.visualstudio.com/)
-[<img align="left" title="JavaScript" alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />](https://www.javascript.com/)
-[<img align="left" title="Typescript" alt="Typescript" width="26px" src="https://www.typescriptlang.org/favicon-32x32.png?v=8944a05a8b601855de116c8a56d3b3ae" />](https://www.typescriptlang.org/)
-[<img align="left" title="NodeJS" alt="NodeJS" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />](https://nodejs.org/en/)
-[<img align="left" title="Docker" alt="Docker" width="26px" src="https://www.docker.com/sites/default/files/d8/Docker-R-Logo-08-2018-Monochomatic-RGB_Moby-x1.png" />](https://www.docker.com/)
