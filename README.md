@@ -1,7 +1,7 @@
 <div align="center">
     <h1>🔥 Hot Utils 🔥</h1>
 	<p>Various NodeJS utils with type definition inference</p>
-	<a href="https://github.com/petarzarkov/hotstuff/actions/"><img src="https://github.com/petarzarkov/hotstuff/actions/workflows/docker-build.yml/badge.svg?branch=main" alt="Build status""></a>
+	<a href="https://github.com/petarzarkov/hotstuff/actions/"><img src="https://github.com/petarzarkov/hotstuff/actions/workflows/build.yml/badge.svg?branch=main" alt="Build status""></a>
 	<a href="https://packagephobia.now.sh/result?p=hot-utils"><img src="https://badgen.net/packagephobia/install/hot-utils" alt="Current version"></a>
 	<a href="https://www.npmjs.com/package/hot-utils"><img src="https://img.shields.io/npm/v/hot-utils" alt="Install size"></a>
 	<a href="https://github.com/petarzarkov/hotstuff/blob/main/LICENSE"><img src="https://img.shields.io/github/license/petarzarkov/hotstuff" alt="License"></a>
