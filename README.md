@@ -18,17 +18,20 @@ npm install hot-utils
 
 ## Table of Contents
 
-- [💨 HotRequests](#requests)
-- [⏲ HotWatch](#watch)
-- [⚙️ HotUrl](#url)
-- [📜 HotLogger](#logger)
-- [💫 HotObj](#obj)
-- [🚥 HotPromise](#promise)
-- [⚡ Languages and tools](#languages-and-tools)
+<!-- TOC -->
 
+- [HotRequests](#requests)
+- [HotWatch](#watch)
+- [HotUrl](#url)
+- [HotLogger](#logger)
+- [HotObj](#obj)
+- [HotPromise](#promise)
+- [Languages and tools](#languages-and-tools)
+
+<!-- /TOC -->
 <br />
 
-## 💨 HotRequests
+## HotRequests
 
 ### Supports all http methods
 
@@ -108,7 +111,7 @@ myWatch.getElapsedS(); // elapsed seconds since construction
 
 <br />
 
-## ⚙️ HotUrl
+## HotUrl
 ### Build your URL from an already existing URL or a string with optional query params
 ---
 <br />
@@ -145,7 +148,7 @@ HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 
 <br />
 
-## 📜 HotLogger
+## HotLogger
 ### Log all you need
 ---
 <br />
@@ -189,7 +192,7 @@ myLogger.error("Some err msg", { err: new Error("Test err"), data: { smh: "ye"},
 <br />
 
 
-## 💫 HotObj
+## HotObj
 ### Object utils
 ---
 <br />
@@ -248,7 +251,7 @@ HotObj.cleanUpNullables(nullableObj); // { thisIsFine: 1 }
 
 <br />
 
-## 🚥 HotPromise
+## HotPromise
 ### Promise utils
 ---
 <br />
@@ -293,7 +296,7 @@ const runTillSuccess = async () => {
 
 <br />
 
-## ⚡ Languages and Tools
+## Languages and Tools
 ---
 [<img align="left" title="Visual Studio Code" alt="vsCode" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />](https://code.visualstudio.com/)
 [<img align="left" title="JavaScript" alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />](https://www.javascript.com/)
