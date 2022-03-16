@@ -17,15 +17,14 @@
   ],
   "author": "Petar Zarkov",
   "license": "MIT",
-  "main": "hot-utils/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "start": "node hot-utils/index.js",
-    "bnw": "npm run build",
-    "prebuild": "npm run clean",
     "clean": "tsc --build --clean",
+    "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.json",
+    "build:watch": "npm run build -- --watch",
+    "start": "node lib/index.js",
     "slc": "tsc -p tsconfig.json --skipLibCheck --skipDefaultLibCheck",
-    "bw": "npm run build -- --watch",
     "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src",
     "lint:fix": "npm run lint --fix",
     "version:update": "node ./scripts/updateVersion.js",
@@ -54,7 +53,7 @@
     "cache": "cache/.npm"
   },
   "files": [
-    "hot-utils",
+    "lib",
     "index.d.ts",
     "index.js",
     "index.js.map"

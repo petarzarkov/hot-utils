@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "ES2020",
         "target": "es6",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "declaration": true,
         "strict": true,
         "noImplicitAny": true,
@@ -22,8 +22,10 @@
         "watch": false,
         "baseUrl": ".",
         "pretty": true,
+        "tsBuildInfoFile": "./cache/tsconfig.tsbuildinfo",
         "incremental": true,
-        "outDir": "hot-utils"
+        "removeComments": true,
+        "outDir": "./lib"
     },
     "include": [
         "src"
