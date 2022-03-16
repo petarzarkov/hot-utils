@@ -1,9 +1,10 @@
 {
   "name": "hot-utils",
   "version": "1.2.8",
-  "description": "various NodeJS utils with TS support",
+  "description": "Various NodeJS utils with TS support",
   "repository": {
-    "url": "https://github.com/petarzarkov/hotstuff"
+    "type": "git",
+    "url": "https://github.com/petarzarkov/hotstuff.git"
   },
   "keywords": [
     "node",
@@ -15,7 +16,11 @@
     "object",
     "http"
   ],
-  "author": "Petar Zarkov",
+  "author": {
+    "name": "Petar Zarkov",
+    "email": "pzarko1@gmail.com",
+    "url": "https://petarzarkov.github.io/portfolio/"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.js",

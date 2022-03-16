@@ -1,11 +1,10 @@
-# 🔥 Hot Utils 🔥
-
-various NodeJS utils with type definition inference
-
-## npm pkg
-
-[hot-utils](https://www.npmjs.com/package/hot-utils)
-
+<div align="center">
+    <h1>🔥 Hot Utils 🔥</h1>
+	<p>Various NodeJS utils with type definition inference</p>
+	<a href="https://github.com/petarzarkov/hotstuff/actions/"><img src="https://github.com/petarzarkov/hotstuff/actions/workflows/docker-build.yml/badge.svg?branch=main" alt="Build status"></a>
+	<a href="https://packagephobia.now.sh/result?p=hot-utils"><img src="https://badgen.net/packagephobia/install/hot-utils" alt="Current version"></a>
+	<a href="https://www.npmjs.com/package/hot-utils"><img src="https://img.shields.io/npm/v/hot-utils" alt="Install size"></a>
+</div>
 
 ## Install
 
@@ -19,17 +18,17 @@ npm install hot-utils
 
 ## Table of Contents
 
-- 💨 [HotRequests](#HotRequests)
-- ⏲ [HotWatch](#HotWatch)
-- ⚙️ [HotUrl](#HotUrl)
-- 📜 [HotLogger](#HotLogger)
-- 💫 [HotObj](#HotObj)
-- 🚥 [HotPromise](#HotPromise)
-- ⚡ [Languages and tools](#languages-and-tools)
+- [💨 HotRequests](#requests)
+- [⏲ HotWatch](#watch)
+- [⚙️ HotUrl](#url)
+- [📜 HotLogger](#logger)
+- [💫 HotObj](#obj)
+- [🚥 HotPromise](#promise)
+- [⚡ Languages and tools](#languages-and-tools)
 
 <br />
 
-## 💨 HotRequests <a name="HotRequests"></a>
+## 💨 HotRequests
 
 ### Supports all http methods
 
@@ -90,7 +89,7 @@ type HttpErrorResponse<T> = {
 
 <br />
 
-## ⏲️ HotWatch <a name="HotWatch"></a>
+## ⏲️ HotWatch
 ### For timing
 
 ---
@@ -109,7 +108,7 @@ myWatch.getElapsedS(); // elapsed seconds since construction
 
 <br />
 
-## ⚙️ HotUrl <a name="HotUrl"></a>
+## ⚙️ HotUrl
 ### Build your URL from an already existing URL or a string with optional query params
 ---
 <br />
@@ -146,7 +145,7 @@ HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 
 <br />
 
-## 📜 HotLogger <a name="HotLogger"></a>
+## 📜 HotLogger
 ### Log all you need
 ---
 <br />
@@ -190,7 +189,7 @@ myLogger.error("Some err msg", { err: new Error("Test err"), data: { smh: "ye"},
 <br />
 
 
-## 💫 HotObj <a name="HotObj"></a>
+## 💫 HotObj
 ### Object utils
 ---
 <br />
@@ -249,7 +248,7 @@ HotObj.cleanUpNullables(nullableObj); // { thisIsFine: 1 }
 
 <br />
 
-## 🚥 HotPromise <a name="HotPromise"></a>
+## 🚥 HotPromise
 ### Promise utils
 ---
 <br />
@@ -294,7 +293,7 @@ const runTillSuccess = async () => {
 
 <br />
 
-## Languages and Tools <a name="languages-and-tools"></a>
+## ⚡ Languages and Tools
 ---
 [<img align="left" title="Visual Studio Code" alt="vsCode" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />](https://code.visualstudio.com/)
 [<img align="left" title="JavaScript" alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />](https://www.javascript.com/)
