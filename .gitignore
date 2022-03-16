@@ -1,6 +1,5 @@
 node_modules
-hot-utils
-hotstuff
+lib
 *.log
 local.json
 local.js

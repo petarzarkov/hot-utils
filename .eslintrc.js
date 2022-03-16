@@ -17,7 +17,7 @@ module.exports = {
       tsconfigRootDir: __dirname,
       project: ["./tsconfig.json"]
     },
-    ignorePatterns: ['**/*.js', '**/*.d.ts', 'node_modules', 'hot-utils', 'tests'],
+    ignorePatterns: ['**/*.js', '**/*.d.ts', 'node_modules', 'lib', 'tests'],
     plugins: ["@typescript-eslint"],
     rules: {
       "@typescript-eslint/explicit-module-boundary-types": "off",
