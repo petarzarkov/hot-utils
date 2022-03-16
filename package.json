@@ -18,6 +18,7 @@
   "author": "Petar Zarkov",
   "license": "MIT",
   "main": "lib/index.js",
+  "module": "lib/index.js",
   "scripts": {
     "clean": "tsc --build --clean",
     "prebuild": "npm run clean",
@@ -53,9 +54,6 @@
     "cache": "cache/.npm"
   },
   "files": [
-    "lib",
-    "index.d.ts",
-    "index.js",
-    "index.js.map"
+    "lib"
   ]
 }
