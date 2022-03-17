@@ -1,4 +1,5 @@
-import { IConfig } from "config";
+// @ts-ignore only ignore the type and ignore type checking in case the module doesn't exist
+import type { IConfig } from "config";
 import { optionalImport } from "./utils";
 
 export const config = optionalImport<IConfig>("config");
