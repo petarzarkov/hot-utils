@@ -1,4 +1,6 @@
-import { IConfig } from "config";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore only ignore the type and ignore type checking in case the module doesn't exist
+import type { IConfig } from "config";
 import { optionalImport } from "./utils";
 
 export const config = optionalImport<IConfig>("config");

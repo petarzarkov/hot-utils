@@ -78,7 +78,7 @@ import { HotRequests } from "hot-utils";
     isGood: false,
     error: 'The operation was aborted.',
     statusCode: 500,
-    elapsed: 322
+    elapsed: 422
   }
 ```
 
