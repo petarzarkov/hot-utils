@@ -42,7 +42,7 @@ npm install hot-utils
 <br />
 
 ## HotRequests
-### [Top](#table-of-contents)
+### [⬆️Top](#table-of-contents)
 
 ### Supports all http methods
 
@@ -104,7 +104,7 @@ type HttpErrorResponse<T> = {
 <br />
 
 ## HotWatch
-### [Top](#table-of-contents)
+### [⬆️Top](#table-of-contents)
 ### For timing
 
 ---
@@ -124,7 +124,7 @@ myWatch.getElapsedS(); // elapsed seconds since construction
 <br />
 
 ## HotUrl
-### [Top](#table-of-contents)
+### [⬆️Top](#table-of-contents)
 ### Build your URL from an already existing URL or a string with optional query params
 ---
 <br />
@@ -162,7 +162,7 @@ HotUrl.buildFromString("http://localhost:4444", "some/path/params/");
 <br />
 
 ## HotLogger
-### [Top](#table-of-contents)
+### [⬆️Top](#table-of-contents)
 ### Log all you need
 ---
 <br />
@@ -207,7 +207,7 @@ myLogger.error("Some err msg", { err: new Error("Test err"), data: { smh: "ye"},
 
 
 ## HotObj
-### [Top](#table-of-contents)
+### [⬆️Top](#table-of-contents)
 ### Object utils
 ---
 <br />
@@ -267,7 +267,7 @@ HotObj.cleanUpNullables(nullableObj); // { thisIsFine: 1 }
 <br />
 
 ## HotPromise
-### [Top](#table-of-contents)
+### [⬆️Top](#table-of-contents)
 ### Promise utils
 ---
 <br />
@@ -300,7 +300,7 @@ const promiseTimeout = async () => {
 const runTillSuccess = async () => {
     try {
         // Default retry times are 5, you can pass in "forever" to retry indefinitely
-        // retries will stop as soon as isGood: true has been returned by the retried action
+        // retries will s⬆️Top as soon as isGood: true has been returned by the retried action
         const ehee = await HotPromise.runTillSuccess(promiseTimeout);
         return { isGood: true, result: { code: "OK", ehee } };
     } catch (error) {
