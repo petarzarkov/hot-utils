@@ -85,13 +85,6 @@ module.exports = {
             "allowSingleExtends": true
           }
         ]
-      },
-      "@typescript-eslint/ban-ts-comment": [
-        "error",
-        {
-          "ts-ignore": "allow-with-description",
-          "minimumDescriptionLength": 10
-        }
-      ]
+      }
   };
   
