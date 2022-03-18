@@ -1,4 +1,4 @@
-import { HotLogger } from "../../../src/helpers/hotLogger";
+import { HotLogger } from "../../../../src/helpers/hotLogger";
 
 describe("HotLogger Test Suite", () => {
     beforeEach(() => {

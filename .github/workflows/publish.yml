@@ -25,9 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install and speed Build
+    - name: Install CI and speed Build
       run: |
-        npm install
+        npm ci
         npm run build:speed
     - name: Versioning
       run: |

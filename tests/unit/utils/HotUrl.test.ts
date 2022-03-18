@@ -1,4 +1,4 @@
-import { HotUrl } from "../../src/utils/HotUrl";
+import { HotUrl } from "../../../src/utils/HotUrl";
 
 describe("HotUrl Test Suite", () => {
     test("build query", async () => {

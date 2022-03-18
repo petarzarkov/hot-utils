@@ -1,6 +1,6 @@
 import { ParamsType } from "../contracts";
 
-export class HotUrl {
+export class HotUrl extends URL {
     public static build({ base, path, queryParams, pathParams } : { base: string | URL; path?: string; queryParams?: ParamsType; pathParams?: ParamsType }) {
         const urlString = (typeof base === "string") ? base : base.href;
         const baseUrlReplaced = this.replacePathParams(urlString, pathParams);
@@ -58,7 +58,7 @@ export class HotUrl {
      * @param baseUrl Could end with / or not
      * @param path Could start with / or not
      */
-    public static buildFromString(baseUrl: string, path?: string): URL {
+    public static buildFromString(baseUrl: string, path?: string): HotUrl {
         if (!baseUrl.endsWith("/") && path && baseUrl.split("?").length === 1) {
             baseUrl += "/";
         }
@@ -67,6 +67,6 @@ export class HotUrl {
             path = path.substring(1);
         }
 
-        return path ? new URL(path, baseUrl) : new URL(baseUrl);
+        return path ? new HotUrl(path, baseUrl) : new HotUrl(baseUrl);
     }
 }

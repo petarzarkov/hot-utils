@@ -1,6 +1,6 @@
 import { Expand } from "../contracts";
 
-export class HotObj {
+export class HotObj extends Object {
     /**
      * Determines if an object has a property
      * useful for type checking and removes the need of casting to specific type just to access a property
@@ -31,7 +31,7 @@ export class HotObj {
     public static extract<X, Y extends keyof X>(obj: X, keys: Y[]): Expand<Pick<X, Y>> {
         const newRef = { ...obj };
 
-        return Object.keys(newRef).reduce((prev, curr) => {
+        return HotObj.keys(newRef).reduce((prev, curr) => {
             const asKey = curr as Y;
             if (keys.includes(asKey)) {
                 (prev as Partial<X>)[asKey] = newRef[asKey];
@@ -46,7 +46,7 @@ export class HotObj {
      * @param {Record<PropertyKey, unknown>} objB any object
      */
     public static shallowEquals<X extends Record<PropertyKey, unknown>, Y extends Record<PropertyKey, unknown>>(objA: X, objB: Y): boolean {
-        if (Object.is(objA, objB)) {
+        if (HotObj.is(objA, objB)) {
             return true;
         }
 
@@ -54,17 +54,17 @@ export class HotObj {
             return false;
         }
 
-        const keysA = Object.keys(objA);
+        const keysA = HotObj.keys(objA);
         if (!keysA.length) {
             return false;
         }
 
-        if (keysA.length !== Object.keys(objB).length) {
+        if (keysA.length !== HotObj.keys(objB).length) {
             return false;
         }
 
         for (const key of keysA) {
-            if (!this.hasProp(objB, key) || !Object.is(this.getValue(objA, key), this.getValue(objB, key))) {
+            if (!this.hasProp(objB, key) || !HotObj.is(this.getValue(objA, key), this.getValue(objB, key))) {
                 return false;
             }
         }
@@ -78,7 +78,7 @@ export class HotObj {
      * @returns the same object without undefined, null, NaN properties
      */
     public static cleanUpNullables<Nullable extends Record<PropertyKey, unknown>>(obj: Nullable): NonNullable<Partial<Nullable>> {
-        Object.keys(obj).map((item) => {
+        HotObj.keys(obj).map((item) => {
             if (["null", "undefined", "NaN", null, undefined, NaN].includes(<string | number | null | undefined>obj[item])) {
                 delete obj[item];
             }

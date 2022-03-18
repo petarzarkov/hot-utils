@@ -1,4 +1,4 @@
-import { HotObj } from "../../src/utils/HotObj";
+import { HotObj } from "../../../src/utils/HotObj";
 
 describe("HotObj Test Suite", () => {
     test("that some object has a prop", async () => {

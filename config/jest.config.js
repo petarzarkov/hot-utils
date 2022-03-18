@@ -20,7 +20,8 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "src/constants.ts",
     "src/decorators",
-    "src/utils/HotPromise.ts"
+    "src/utils/HotPromise.ts",
+    ".index.ts"
   ],
   rootDir: "../",
   testRegex: ".\/tests\/.*.test.ts$",
