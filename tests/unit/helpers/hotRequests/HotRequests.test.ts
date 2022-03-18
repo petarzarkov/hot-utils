@@ -28,10 +28,10 @@ describe("HotRequests Test Suite", () => {
         });
 
         expect(result).toEqual(expect.objectContaining({
-            isGood: true,
-            statusCode: 200,
+            success: true,
+            status: 200,
             elapsed: expect.any(Number),
-            response: {
+            result: {
                 valid: "res"
             }
         }));
@@ -50,12 +50,12 @@ describe("HotRequests Test Suite", () => {
         });
 
         expect(result).toEqual(expect.objectContaining({
-            isGood: false,
-            statusCode: 500,
+            success: false,
+            status: 500,
             error: "Request unsuccessful",
             stack: expect.stringContaining("Error:"),
             elapsed: expect.any(Number),
-            response: {
+            result: {
                 valid: "res"
             }
         }));
@@ -78,8 +78,8 @@ describe("HotRequests Test Suite", () => {
         });
 
         expect(result).toEqual(expect.objectContaining({
-            isGood: false,
-            statusCode: 500,
+            success: false,
+            status: 500,
             error: "Some err",
             stack: expect.stringContaining("Error: Some err"),
             elapsed: expect.any(Number)

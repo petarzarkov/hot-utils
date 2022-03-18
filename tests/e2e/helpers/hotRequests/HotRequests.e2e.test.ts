@@ -15,8 +15,8 @@ describe("HotRequests E2E Test Suite", () => {
         });
 
         expect(result).toEqual(expect.objectContaining({
-            isGood: true,
-            statusCode: 200,
+            success: true,
+            status: 200,
             elapsed: expect.any(Number),
         }));
     });
@@ -35,8 +35,8 @@ describe("HotRequests E2E Test Suite", () => {
         });
 
         expect(result).toEqual(expect.objectContaining({
-            isGood: false,
-            statusCode: 408,
+            success: false,
+            status: 408,
             error: "The operation was aborted.",
             stack: expect.stringContaining("AbortError: The operation was aborted"),
             elapsed: expect.any(Number)

@@ -31,15 +31,25 @@ npm install hot-utils
 
 <!-- TOC -->
 
+- [HotConfiguration](#hotconfiguration)
 - [HotRequests](#hotrequests)
 - [HotWatch](#hotwatch)
 - [HotUrl](#hoturl)
 - [HotLogger](#hotlogger)
 - [HotObj](#hotobj)
 - [HotPromise](#hotpromise)
+- [HotServer](#hotserver)
 
 <!-- /TOC -->
 <br />
+
+## HotConfiguration
+### [⬆️Top](#table-of-contents)
+### If you want to easily configure the hot-utils package
+1. ``` npm i config ```
+2. create a config folder in the root of your project
+3. create a default.js file in it
+4. check this [Example Config](./config/default.js)
 
 ## HotRequests
 ### [⬆️Top](#table-of-contents)
@@ -64,9 +74,9 @@ import { HotRequests } from "hot-utils";
 
   // A successful response results in the following
   res: {
-    isGood: true,
-    statusCode: 200,
-    response: {
+    success: true,
+    status: 200,
+    result: {
       sucess: true,
       wisdom: 'But he who gives them to him, the bad guys get along easily, one does not live on bread alone.',
       lang: 'en'
@@ -75,9 +85,9 @@ import { HotRequests } from "hot-utils";
   }
   // Or if it times out
   res: {
-    isGood: false,
+    success: false,
     error: 'The operation was aborted.',
-    statusCode: 500,
+    status: 500,
     elapsed: 422
   }
 ```
@@ -86,18 +96,18 @@ import { HotRequests } from "hot-utils";
 
 ```ts
 type HttpSuccessResponse<T> = {
-    isGood: true;
-    statusCode: number;
+    success: true;
+    status: number;
     elapsed: number;
-    response: T;
+    result: T;
 };
 
 type HttpErrorResponse<T> = {
-    isGood: false;
+    success: false;
     error: string;
     elapsed: number;
-    statusCode: number;
-    response?: T;
+    status: number;
+    result?: T;
 };
 ```
 
@@ -308,4 +318,43 @@ const runTillSuccess = async () => {
     }
 };
 
+```
+## HotServer
+### [⬆️Top](#table-of-contents)
+### Simple http server
+
+Please check [HotServer.e2e.test.ts](./tests/e2e/server/HotServer.e2e.test.ts) for a more broad example usage.
+
+```typescript
+import { HotServer } from "hot-utils";
+
+new HotServer({
+    host: "localhost", // if not passed, taken from config
+    port: 5433, // if not passed, taken from config
+    staticRoute: {
+        html: "./tests/mocks/test.html",
+        route: "/staticHtml"
+    },
+    routes: {
+        "/json": {
+            onSuccess: () => {
+                return {
+                    result: {
+                        some: "record"
+                    }
+                };
+            }
+        },
+        "/text": {
+            responseHeaders: {
+                "Content-Type": "text/plain"
+            },
+            onSuccess: () => {
+                return {
+                    result: "My text response."
+                };
+            }
+        }
+    }
+});
 ```

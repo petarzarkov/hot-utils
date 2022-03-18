@@ -28,11 +28,11 @@
     "url": "https://github.com/petarzarkov/hotstuff/issues"
   },
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf lib, cache/tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.json --diagnostics",
-    "build:watch": "npm run build -- --watch",
     "build:speed": "tsc -p tsconfig.speed.json --diagnostics",
+    "build:watch": "npm run build:speed -- --watch",
     "start": "node lib/index.js",
     "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src",
     "lint:fix": "npm run lint --fix",

@@ -15,3 +15,14 @@ export const LOG_LEVEL: string | undefined = process.env.LOG_LEVEL;
 export const HOT_DEFAULT_HTTP_TIMEOUT: number = process.env.HOT_DEFAULT_HTTP_TIMEOUT ?
     Number(process.env.HOT_DEFAULT_HTTP_TIMEOUT) || 10000 :
     (config?.has("defaultHttpTimeout") ? config.get("defaultHttpTimeout") : 10000);
+
+export const HOT_SERVER =  {
+    /**
+     * @default "localhost"
+     */
+    host: config?.has("server.host") ? config.get<string>("server.host") : "localhost",
+    /**
+     * @default 3336
+     */
+    port: config?.has("server.port") ? config.get<number>("server.port") : 3336,
+};
