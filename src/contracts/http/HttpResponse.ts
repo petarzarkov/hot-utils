@@ -1,19 +1,19 @@
 import { ExpandRecursively } from "../utilities";
 
 export type HttpSuccessResponse<T> = {
-    isGood: true;
-    statusCode: number;
+    success: true;
+    status: number;
     elapsed: number;
-    response: T;
+    result: T;
 };
 
 export type HttpErrorResponse<T> = {
-    isGood: false;
+    success: false;
     error: string;
     stack?: string;
     elapsed: number;
-    statusCode: number;
-    response?: T;
+    status: number;
+    result?: T;
 };
 
 export type HttpResponse<T> = ExpandRecursively<HttpSuccessResponse<T> | HttpErrorResponse<T>>;

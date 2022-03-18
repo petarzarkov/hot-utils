@@ -1,6 +1,9 @@
 import { HotSerializer } from "./HotSerializer";
 import { HotLogLevel, HotLogDisplayName } from "./HotLogLevel";
-import { IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage, IHotLogConfig, IHotLogFilter, StaticParams } from "./IHotLogger";
+import {
+    IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage,
+    IHotLogConfig, IHotLogFilter, StaticParams
+} from "./IHotLogger";
 import { NODE_ENV, LOG_LEVEL, APP_NAME, VERSION, config } from "../../constants";
 
 export class HotLogger extends HotSerializer implements IHotLogger {
@@ -9,10 +12,17 @@ export class HotLogger extends HotSerializer implements IHotLogger {
     private readonly _logConfig: IHotLogConfig | undefined;
     public readonly name: string;
     public readonly staticLogParams: StaticParams;
-    public constructor(name: string) {
+    public constructor(name: string, filters?: IHotLogFilter[]) {
         super(config?.has("log.serializers") ? config.get("log.serializers") : undefined);
         this.name = name;
-        this._logConfig = config?.has("log") ? config.get<IHotLogConfig>("log") : undefined;
+        this._logConfig = config?.has("log") ? config.get<IHotLogConfig>("log") : {
+            level: "TRACE",
+            filters
+        };
+        if (filters && config?.has("log")) {
+            this._logConfig.filters = this._logConfig.filters?.concat(filters);
+        }
+
         this._configuredLogLevel = LOG_LEVEL && this.isValidLogLevel(LOG_LEVEL) ? HotLogLevel[<keyof typeof HotLogLevel>LOG_LEVEL] :
             this._logConfig?.level ? HotLogLevel[this._logConfig.level] : HotLogLevel.TRACE;
         this._levelMap = {
@@ -33,8 +43,8 @@ export class HotLogger extends HotSerializer implements IHotLogger {
         };
     }
 
-    public static createLogger(name: string) {
-        return new HotLogger(name);
+    public static createLogger(name: string, filters?: IHotLogFilter[]) {
+        return new HotLogger(name, filters);
     }
 
     public isValidLogLevel = (level: string) => Object.keys(HotLogLevel).includes(level);

@@ -44,33 +44,33 @@ export class HotRequests {
         let rawResponse: Response | undefined;
         try {
             rawResponse = await fetch(url, requestOptions);
-            const response = await this.parseResponse(rawResponse) as ExpandRecursively<TResponse>;
+            const result = await this.parseResponse(rawResponse) as ExpandRecursively<TResponse>;
             if (!rawResponse.ok) {
                 const message = "Request unsuccessful";
                 if (logger) {
                     logger.warn(message, HotObj.cleanUpNullablesDeep({
-                        requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
+                        requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result, status: rawResponse.status }
                     }));
                 }
                 return {
-                    isGood: false,
+                    success: false,
                     error: message,
                     stack: new Error().stack,
-                    statusCode: rawResponse.status,
-                    response,
+                    status: rawResponse.status,
+                    result,
                     elapsed: hw.getElapsedMs()
                 };
             }
 
             if (logger) {
                 logger.info("Request successful", HotObj.cleanUpNullablesDeep({
-                    requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result: response, statusCode: rawResponse.status }
+                    requestId, method, event, url, duration: hw.getElapsedMs(), data: { request: payload, result, status: rawResponse.status }
                 }));
             }
             return {
-                isGood: true,
-                statusCode: rawResponse.status || 200,
-                response,
+                success: true,
+                status: rawResponse.status || 200,
+                result,
                 elapsed: hw.getElapsedMs()
             };
         } catch (err) {
@@ -84,15 +84,15 @@ export class HotRequests {
                     err: <Error>err,
                     url,
                     duration: hw.getElapsedMs(),
-                    data: { request: payload, statusCode: rawResponse?.status, rawResponse }
+                    data: { request: payload, status: rawResponse?.status, rawResponse }
                 }) as ErrorParams);
             }
 
             return {
-                isGood: false,
+                success: false,
                 error: (err as Error)?.message || message,
                 stack: (err as Error)?.stack || new Error().stack,
-                statusCode: isAborted ? 408 : (rawResponse?.status || 500),
+                status: isAborted ? 408 : (rawResponse?.status || 500),
                 elapsed: hw.getElapsedMs()
             };
         } finally {
