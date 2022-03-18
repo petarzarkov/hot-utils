@@ -1,4 +1,4 @@
-import { HotLogger, HotRequests } from "../../../src";
+import { HotLogger, HotRequests } from "../../../../src";
 import fetch from "node-fetch";
 
 const fetchFixture = {

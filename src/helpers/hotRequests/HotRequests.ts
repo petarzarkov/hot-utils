@@ -74,7 +74,8 @@ export class HotRequests {
                 elapsed: hw.getElapsedMs()
             };
         } catch (err) {
-            const message = (err as Error)?.message === "The operation was aborted" ? "Request timed out" : "Request unsuccessful";
+            const isAborted = (err as Error)?.message.includes("abort");
+            const message = isAborted ? "Request timed out" : "Request unsuccessful";
             if (logger) {
                 logger.error(message, HotObj.cleanUpNullablesDeep({
                     requestId,
@@ -86,11 +87,12 @@ export class HotRequests {
                     data: { request: payload, statusCode: rawResponse?.status, rawResponse }
                 }) as ErrorParams);
             }
+
             return {
                 isGood: false,
                 error: (err as Error)?.message || message,
                 stack: (err as Error)?.stack || new Error().stack,
-                statusCode: rawResponse?.status || 500,
+                statusCode: isAborted ? 408 : (rawResponse?.status || 500),
                 elapsed: hw.getElapsedMs()
             };
         } finally {

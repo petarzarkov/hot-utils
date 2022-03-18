@@ -1,4 +1,4 @@
-export class HotPromise {
+export class HotPromise extends Promise<unknown> {
     public static delay = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
 
     /**
@@ -31,7 +31,6 @@ export class HotPromise {
             const counter = { count: 0 };
             const waitTillIsGood = async () => {
                 counter.count += 1;
-                console.log("Retry N", counter.count);
                 if (counter.count === retryTimes) {
                     return reject(new Error(`Fail, total tries: ${retryTimes}`));
                 }

@@ -10,8 +10,8 @@ ENV NODE_ENV=$NODE_ENV
 COPY --chown=node:node . /app
 RUN ls -lah /app
 RUN cd /app && \
-    npm install && \
+    npm ci && \
     npm run lint && \
-    npm run bnw && \
+    npm run build && \
     npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && \
     npm run publish
