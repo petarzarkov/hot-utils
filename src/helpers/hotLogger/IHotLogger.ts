@@ -25,7 +25,7 @@ export type HotLoggerMessage = {
     LogTimestamp: string;
     SourceContext: string;
     ExceptionMessage?: string;
-    ExceptionStacktrace?: string;
+    ExceptionStacktrace?: string[];
 };
 
 export interface IHotLogger {
