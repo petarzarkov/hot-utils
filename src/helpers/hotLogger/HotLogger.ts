@@ -115,7 +115,7 @@ export class HotLogger extends HotSerializer implements IHotLogger {
             Message: v,
             LogLevel: level,
             SourceContext: this.name,
-            ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack } },
+            ...err && { ExceptionMessage: err, ...stack && { ExceptionStacktrace: stack.replace(/\n/g, "")?.split(/[\s]{2,}/)?.slice(1) } },
             Properties: Object.assign({}, this.staticLogParams, params),
             LogTimestamp: new Date().toISOString()
         };
