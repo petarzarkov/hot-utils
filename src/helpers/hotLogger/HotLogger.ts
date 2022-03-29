@@ -148,7 +148,13 @@ export class HotLogger extends HotSerializer implements IHotLogger {
         }
 
         if (keys.length === 1) {
-            return filter.values.some(val => objProp === val);
+            return filter.values.some(val => {
+                if (val.includes("/*") && typeof(objProp) === "string") {
+                    return objProp.includes(val.replace("/*", ""));
+                }
+
+                return objProp === val;
+            });
         }
 
         return this.objectMatchesFilter({ key: keys.slice(1).join("."), values: filter.values }, <LoggerParams>objProp);
