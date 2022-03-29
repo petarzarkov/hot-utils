@@ -45,10 +45,14 @@
     "node-fetch": "3.0.0-beta.9"
   },
   "peerDependencies": {
-    "config": ">=3.3.6"
+    "config": ">=3.3.6",
+    "minimist": ">=1.2.6"
   },
   "peerDependenciesMeta": {
     "config": {
+      "optional": true
+    },
+    "minimist": {
       "optional": true
     }
   },
