@@ -6,7 +6,7 @@
   "description": "Various NodeJS utils with TS support",
   "repository": {
     "type": "git",
-    "url": "https://github.com/petarzarkov/hotstuff.git"
+    "url": "https://github.com/petarzarkov/hot-utils.git"
   },
   "author": {
     "name": "Petar Zarkov",
@@ -25,7 +25,7 @@
     "http"
   ],
   "bugs": {
-    "url": "https://github.com/petarzarkov/hotstuff/issues"
+    "url": "https://github.com/petarzarkov/hot-utils/issues"
   },
   "scripts": {
     "clean": "rimraf lib, cache/tsconfig.tsbuildinfo",
