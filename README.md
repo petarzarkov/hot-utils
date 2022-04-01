@@ -1,10 +1,10 @@
 <div align="center">
     <h1>🔥 Hot Utils 🔥</h1>
 	<p>Various NodeJS utils with type definition inference</p>
-	<a href="https://github.com/petarzarkov/hotstuff/actions/"><img src="https://github.com/petarzarkov/hotstuff/actions/workflows/build.yml/badge.svg?branch=main" alt="Build status""></a>
+	<a href="https://github.com/petarzarkov/hot-utils/actions/"><img src="https://github.com/petarzarkov/hot-utils/actions/workflows/build.yml/badge.svg?branch=main" alt="Build status""></a>
 	<a href="https://packagephobia.now.sh/result?p=hot-utils"><img src="https://badgen.net/packagephobia/install/hot-utils" alt="Current version"></a>
 	<a href="https://www.npmjs.com/package/hot-utils"><img src="https://img.shields.io/npm/v/hot-utils" alt="Install size"></a>
-	<a href="https://github.com/petarzarkov/hotstuff/blob/main/LICENSE"><img src="https://img.shields.io/github/license/petarzarkov/hotstuff" alt="License"></a>
+	<a href="https://github.com/petarzarkov/hot-utils/blob/main/LICENSE"><img src="https://img.shields.io/github/license/petarzarkov/hot-utils" alt="License"></a>
     <p style="color: gray;">Stack</p>
     <a href="https://www.javascript.com/"><img title="JavaScript" alt="JavaScript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/javascript.svg" /></a>
     <a href="https://www.typescriptlang.org/"><img title="Typescript" alt="Typescript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/typescript-icon.svg" /></a>
@@ -210,7 +210,7 @@ myLogger.debug("Some info msg", { data: { smh: "ye"}, someKey: "/serializeThisEv
 // [{"Message":"Some info msg","LogLevel":"Debug","SourceContext":"MyLoggerContext","Properties":{"ProcessID":22172,"AppVersion":"1.0.3","AppName":"hot-utils","AppId":"development-hot-utils","Env":"development","data":{"smh":"********"},"someKey":"/serializeThisEvent"},"LogTimestamp":"2021-12-10T06:46:17.478Z"}]
 
 myLogger.error("Some err msg", { err: new Error("Test err"), data: { smh: "ye"}, someKey: "/serializeThisEvent" });
-//[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"MyLoggerContext","ExceptionMessage":"Test err","ExceptionStacktrace":"Error: Test err\n    at Object.<anonymous> (G:\\hehe\\hotstuff\\hot-utils\\index.js:19:39)\n    at Module._compile (internal/modules/cjs/loader.js:1068:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1097:10)\n    at Module.load (internal/modules/cjs/loader.js:933:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:774:14)\n    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)\n    at internal/main/run_main_module.js:17:47","Properties":{"ProcessID":4444,"AppVersion":"1.0.3","AppName":"hot-utils","AppId":"development-hot-utils","Env":"development","data":{"smh":"********"},"someKey":"/serializeThisEvent"},"LogTimestamp":"2021-12-10T06:51:21.375Z"}]
+//[{"Message":"Some err msg","LogLevel":"Error","SourceContext":"MyLoggerContext","ExceptionMessage":"Test err","ExceptionStacktrace":"Error: Test err\n    at Object.<anonymous> (G:\\hehe\\hot-utils\\hot-utils\\index.js:19:39)\n    at Module._compile (internal/modules/cjs/loader.js:1068:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1097:10)\n    at Module.load (internal/modules/cjs/loader.js:933:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:774:14)\n    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)\n    at internal/main/run_main_module.js:17:47","Properties":{"ProcessID":4444,"AppVersion":"1.0.3","AppName":"hot-utils","AppId":"development-hot-utils","Env":"development","data":{"smh":"********"},"someKey":"/serializeThisEvent"},"LogTimestamp":"2021-12-10T06:51:21.375Z"}]
 ```
 
 <br />
