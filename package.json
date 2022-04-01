@@ -41,6 +41,9 @@
     "test": "set NODE_ENV=test&& jest --config=./config/jest.config.js --forceExit --detectOpenHandles",
     "test:coverage": "set NODE_ENV=test&& npm run test -- --coverage"
   },
+  "engines": {
+    "node": ">=15.4.0"
+  },
   "dependencies": {
     "node-fetch": "3.0.0-beta.9"
   },
