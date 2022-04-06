@@ -11,7 +11,7 @@ export interface IBaseOptions extends Partial<RequestInit> {
     queryParams?: ParamsType;
     requestId?: string;
     eventName?: string;
-    logger?: IHotLogger | Console;
+    logger?: IHotLogger | Console | true;
 }
 
 export type HttpRequest<TRequest extends Record<string | number, unknown>> = {
