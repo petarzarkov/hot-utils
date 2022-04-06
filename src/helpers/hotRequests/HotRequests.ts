@@ -8,7 +8,8 @@ import { ErrorParams } from "../hotLogger";
 export class HotRequests {
     public static async fetch<TRequest extends Record<string | number, unknown>, TResponse>(req: HttpRequest<TRequest> & { method: `${HttpMethods}` }): Promise<HttpResponse<TResponse>> {
         const { options, payload, url: baseUrl, method = HttpMethods.GET } = req;
-        const { headers, queryParams, pathParams, timeout = HOT_DEFAULT_HTTP_TIMEOUT, path, logger, eventName, requestId } = options || {};
+        const { headers, queryParams, pathParams, timeout = HOT_DEFAULT_HTTP_TIMEOUT, path, logger: rawLogger, eventName, requestId } = options || {};
+        const logger = rawLogger === true ? console : rawLogger; // Copilot did this pepega
         const controller = new AbortController();
         const timeoutFetch = setTimeout(() => {
             controller.abort();
