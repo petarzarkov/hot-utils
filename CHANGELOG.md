@@ -2,6 +2,20 @@
 ---
 
 
+- revert log changes
+```
+
+version: 1.4.0
+branch: remotes/origin/release/1.4.2
+commit: 36dc51bed9d9c6b797968d13cd3b8db52440a746
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Tue Sep 20 15:04:00 2022 +0300
+subject: revert log changes
+message: revert-log-changes
+
+```
+
 - release/1.4.1
 ```
 
