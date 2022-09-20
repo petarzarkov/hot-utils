@@ -96,13 +96,12 @@ export class HotLogger extends HotSerializer implements IHotLogger {
             if (!params.err.stack) Error.captureStackTrace(params.err);
             err = params.err.message;
             stack = params.err.stack;
-        }
-
-        if (params.err && typeof params.err !== "string") {
-            err = JSON.stringify(params.err);
-        }
-
-        if (typeof params.err === "string") {
+        } else if (params.err && typeof params.err !== "string") {
+            const errMsg = JSON.stringify(params.err);
+            const newErr = new Error(errMsg);
+            params.stack = newErr?.stack;
+            params.err = newErr.message || errMsg;
+        } else if (typeof params.err === "string") {
             const errFromString = new Error(params.err);
             if (!errFromString.stack) Error.captureStackTrace(errFromString);
             err = params.err;
