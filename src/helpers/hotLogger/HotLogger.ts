@@ -1,5 +1,5 @@
 import { HotSerializer } from "./HotSerializer";
-import { HotLogLevel, HotLogDisplayName } from "./HotLogLevel";
+import { HotLogLevel, HotLogDisplayName, LowerCaseLevel } from "./HotLogLevel";
 import {
     IHotLogger, MessageParams, ErrorParams, LoggerParams, HotLoggerMessage,
     IHotLogConfig, IHotLogFilter, StaticParams
@@ -8,7 +8,7 @@ import { NODE_ENV, LOG_LEVEL, APP_NAME, VERSION, config } from "../../constants"
 
 export class HotLogger extends HotSerializer implements IHotLogger {
     private readonly _levelMap: Record<HotLogLevel, HotLogDisplayName>;
-    private readonly _configuredLogLevel: HotLogLevel;
+    private _configuredLogLevel: HotLogLevel;
     private readonly _logConfig: IHotLogConfig | undefined;
     public readonly name: string;
     public readonly staticLogParams: StaticParams;
@@ -96,9 +96,13 @@ export class HotLogger extends HotSerializer implements IHotLogger {
             if (!params.err.stack) Error.captureStackTrace(params.err);
             err = params.err.message;
             stack = params.err.stack;
-        } else if (params.err && typeof params.err !== "string") {
+        }
+
+        if (params.err && typeof params.err !== "string") {
             err = JSON.stringify(params.err);
-        } else if (typeof params.err === "string") {
+        }
+
+        if (typeof params.err === "string") {
             const errFromString = new Error(params.err);
             if (!errFromString.stack) Error.captureStackTrace(errFromString);
             err = params.err;
@@ -160,4 +164,13 @@ export class HotLogger extends HotSerializer implements IHotLogger {
         return this.objectMatchesFilter({ key: keys.slice(1).join("."), values: filter.values }, <LoggerParams>objProp);
     }
 
+    public setLogLevel = (level: keyof typeof HotLogLevel | LowerCaseLevel) => {
+        if (!this.isValidLogLevel(level)){
+            return;
+        }
+
+        this._configuredLogLevel = HotLogLevel[level.toUpperCase() as keyof typeof HotLogLevel];
+    };
+
+    public getLogLevel = () => HotLogLevel[this._configuredLogLevel]?.toLowerCase() as LowerCaseLevel;
 }

@@ -17,3 +17,5 @@ export const enum HotLogDisplayName {
     Fatal = "Fatal",
     Off = "Off"
 }
+
+export type LowerCaseLevel = Lowercase<`${keyof typeof HotLogLevel}`>;

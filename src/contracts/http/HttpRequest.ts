@@ -14,7 +14,7 @@ export interface IBaseOptions extends Partial<RequestInit> {
     logger?: IHotLogger | Console | true;
 }
 
-export type HttpRequest<TRequest extends Record<string | number, unknown>> = {
+export type HttpRequest<TRequest extends Record<string | number, unknown> | unknown> = {
     url: string;
     payload?: TRequest;
     options?: IBaseOptions;
