@@ -2,6 +2,20 @@
 ---
 
 
+- Add base repo improvements
+```
+
+version: 1.4.2
+branch: remotes/origin/release/1.4.4
+commit: 89a5714d88887a8b778bea94ebe8a46371108bc1
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Wed Oct 12 10:39:00 2022 +0300
+subject: Add base repo improvements
+message: Add-base-repo-improvements
+
+```
+
 - Add sequelize base repo and okfail func
 ```
 
