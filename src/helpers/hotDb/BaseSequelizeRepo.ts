@@ -3,15 +3,18 @@ import { MakeNullishOptional } from "sequelize/types/utils";
 import { HotLogger } from "../hotLogger";
 import { ok, fail } from "../../utils";
 
-const log = HotLogger.createLogger("@db/BaseRepo");
-
-interface IBaseRepo<
+interface IBaseSequelizeRepo<
     ModelAttributes extends { id: string },
     ModelCreationAttributes extends Record<string, unknown>,
     CustomModel extends Model<ModelAttributes, ModelCreationAttributes>
 > {
     table: ModelStatic<CustomModel>;
     mapTableToDTO: (model: CustomModel) => ModelAttributes;
+    logger?: {
+        enabled: true;
+        instance?: HotLogger;
+        logQueries?: boolean;
+    } | { enabled: false };
 }
 
 type CommonCommanderOpts<CommandReturnType> = {
@@ -20,7 +23,7 @@ type CommonCommanderOpts<CommandReturnType> = {
     commandName?: string;
 };
 
-export class BaseRepository<
+export class BaseSequelizeRepo<
     ModelAttributes extends { id: string },
     ModelCreationAttributes extends Record<string, unknown>,
     CustomModel extends Model<ModelAttributes, ModelCreationAttributes>
@@ -28,17 +31,21 @@ export class BaseRepository<
     public table: ModelStatic<CustomModel>;
     public tableName: string;
     public mapTableToDTO: (model: CustomModel) => ModelAttributes;
+    private _logger: HotLogger | null;
+    private _logQueries: boolean;
 
-    constructor({ table, mapTableToDTO }: IBaseRepo<ModelAttributes, ModelCreationAttributes, CustomModel>) {
+    constructor({ table, mapTableToDTO, logger }: IBaseSequelizeRepo<ModelAttributes, ModelCreationAttributes, CustomModel>) {
         if (!table) {
             const error = "Missing table model!";
-            log.warn(error);
+            this._logger?.warn(error);
             throw new Error(error);
         }
 
         this.table = table;
         this.tableName = table.tableName || table.name;
         this.mapTableToDTO = mapTableToDTO;
+        this._logger = logger?.enabled ? logger?.instance || HotLogger.createLogger(`@db/${this.tableName}`) : null;
+        this._logQueries = !!logger?.enabled && !!logger.logQueries;
     }
 
     public commit = async <CommandReturnType>({ command, requestId, commandName }: CommonCommanderOpts<CommandReturnType>) => {
@@ -48,9 +55,21 @@ export class BaseRepository<
                 commandQuery.query = query;
                 commandQuery.time = time;
             });
+
+            if (this._logQueries) {
+                this._logger?.info(`Executing ${this.tableName}.${commandName || "command"}`, {
+                    requestId,
+                    tableName: this.tableName,
+                    ...commandQuery && commandQuery,
+                    data: {
+                        result: res
+                    }
+                });
+            }
+
             return ok<CommandReturnType>(res);
         } catch (error) {
-            log.error(`Error executing ${this.tableName}.${commandName || "command"}`, {
+            this._logger?.error(`Error executing ${this.tableName}.${commandName || "command"}`, {
                 err: <Error>error,
                 requestId,
                 tableName: this.tableName,
@@ -153,7 +172,7 @@ export class BaseRepository<
         return this.commit<ModelAttributes | null>({
             requestId,
             commandName: this.findOne.name,
-            command: () => this.table.findOne({ where, order })
+            command: (logging) => this.table.findOne({ where, order, logging })
                 .then(r => r && this.mapTableToDTO(r))
         });
     };
