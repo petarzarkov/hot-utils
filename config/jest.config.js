@@ -21,6 +21,7 @@ module.exports = {
     "src/constants.ts",
     "src/decorators",
     "src/utils/HotPromise.ts",
+    "src/helpers/hotDb/BaseRepo.ts",
     ".index.ts"
   ],
   rootDir: "../",
