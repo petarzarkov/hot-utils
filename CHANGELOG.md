@@ -2,6 +2,20 @@
 ---
 
 
+- Add sequelize base repo and okfail func
+```
+
+version: 1.4.2
+branch: remotes/origin/release/1.4.3
+commit: 92b89734775593c1faf94f6fe942de846da51360
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Wed Oct 12 09:38:22 2022 +0300
+subject: Add sequelize base repo and okfail func
+message: Add-sequelize-base-repo-and-okfail-func
+
+```
+
 - revert log changes
 ```
 
