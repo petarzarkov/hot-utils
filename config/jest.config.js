@@ -21,7 +21,7 @@ module.exports = {
     "src/constants.ts",
     "src/decorators",
     "src/utils/HotPromise.ts",
-    "src/helpers/hotDb/BaseRepo.ts",
+    "src/helpers/hotDb/BaseSequelizeRepo.ts",
     ".index.ts"
   ],
   rootDir: "../",
