@@ -1,15 +1,16 @@
 
 const { execSync, spawn } = require('child_process');
 const fs = require("fs");
+const pkg = require('../package.json');
 
-const getCommitPkgV = (commit) => {
-    try {
-        const pkgBuff = execSync(`git show "${commit}:package.json"`, { stdio: "pipe" });
-        return JSON.parse(pkgBuff.toString())?.version || "unknown";
-    } catch (error) {
-        return "unknown";
-    }
-}
+// const getCommitPkgV = (commit) => {
+//     try {
+//         const pkgBuff = execSync(`git show "${commit}:package.json"`, { stdio: "pipe" });
+//         return JSON.parse(pkgBuff.toString())?.version || "unknown";
+//     } catch (error) {
+//         return "unknown";
+//     }
+// }
 
 (async () => {
     try {
@@ -38,11 +39,12 @@ const getCommitPkgV = (commit) => {
 
         const additionalChangelog = initialChangelog.map(log => {
             const branch = execSync(`git name-rev ${log.commit}`).toString().split(" ")[1].split('\n')[0] || "Deleted";
-            const version = getCommitPkgV(log.commit);
+            const version = pkg.version;
             return {
                 version,
                 branch,
-                ...log
+                ...log,
+                subject: `${pkg.version} ${log.subject}`
             }
 
         }).filter(l => {
