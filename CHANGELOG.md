@@ -2,6 +2,20 @@
 ---
 
 
+- Fix test coverage
+```
+
+version: 1.4.4
+branch: remotes/origin/release/1.4.5
+commit: 656e423a5c1bbf6a9614d03e93e495eb0ecec07a
+authorName: Petar Zarkov
+authorEmail: p.zarkov@draftkings.com
+date: Thu Oct 13 14:03:46 2022 +0300
+subject: Fix test coverage
+message: Fix-test-coverage
+
+```
+
 - Add base repo improvements
 ```
 
