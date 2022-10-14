@@ -3,9 +3,7 @@ import { createReadStream } from "fs";
 import { Server, createServer, IncomingMessage, ServerResponse } from "http";
 import { HOT_SERVER } from "../constants";
 import { HttpResponse, OneOrOther } from "../contracts";
-import { HotLogger, HotWatch } from "../helpers";
-
-const log = HotLogger.createLogger("hot-server", [{ key: "event", values: ["/favicon.ico"] }]);
+import { HotLogger, HotWatch, IHotLogger } from "../helpers";
 
 interface IHotServer {
     host?: string;
@@ -49,6 +47,7 @@ export class HotServer {
     private server: Server;
     private mdEvents?: Set<string>;
     private routes?: Map<string, Middleware & { event: string }>;
+    private log: IHotLogger;
 
     constructor({
         host = HOT_SERVER.host,
@@ -57,6 +56,7 @@ export class HotServer {
         defaultHeader = { "Content-Type": "application/json" },
         staticRoute
     }: IHotServer = {}) {
+        this.log = HotLogger.createLogger("@hot/server", [{ key: "event", values: ["/favicon.ico"] }]);
         this.defaultHeader = defaultHeader;
         this.routes = new Map();
         this.mdEvents = new Set();
@@ -83,7 +83,7 @@ export class HotServer {
             port,
             host
         }, () => {
-            log.info(`Server started on http://${host}:${port}/`);
+            this.log.info(`Server started on http://${host}:${port}/`);
         });
     }
 
@@ -102,7 +102,7 @@ export class HotServer {
 
         try {
             const { headers, httpVersion, method, socket: { remoteAddress, remoteFamily }, url } = req || {};
-            log.trace(`<-- ${method!} ${url!}`, {
+            this.log.trace(`<-- ${method!} ${url!}`, {
                 method,
                 url,
                 event,
@@ -137,7 +137,7 @@ export class HotServer {
             });
         } catch (error) {
             const mdErr = await onError?.(req, res, <Error>error);
-            log.error("Error on request handling", { err: <Error>error, event });
+            this.log.error("Error on request handling", { err: <Error>error, event });
 
             this.response({
                 req,
@@ -165,7 +165,7 @@ export class HotServer {
         }) => {
         const { method, url } = req;
         const { status, result, ...rest } = http;
-        log.trace(`--> ${method!} ${url!}`, {
+        this.log.trace(`--> ${method!} ${url!}`, {
             status,
             url,
             event,
@@ -196,7 +196,7 @@ export class HotServer {
 
     public stop = () => {
         return new Promise(resolve => this.server.close(() => {
-            log.info("Server stopped.");
+            this.log.info("Server stopped.");
             resolve("OK");
         }));
     };
