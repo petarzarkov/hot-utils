@@ -125,11 +125,11 @@ export class BaseSequelizeRepo<
         });
     };
 
-    public getAll = async ({ requestId, order, where }: { order?: Order; requestId?: string; where?: WhereOptions<ModelAttributes> } = {}) => {
+    public getAll = async ({ requestId, order, where, limit }: { order?: Order; requestId?: string; where?: WhereOptions<ModelAttributes>; limit?: number } = {}) => {
         return this.commit<ModelAttributes[] | null>({
             requestId,
             commandName: this.getAll.name,
-            command: () => this.table.findAll({ where, order })
+            command: () => this.table.findAll({ where, order, limit })
                 .then(e => e.length ? e?.map(this.mapTableToDTO) : null)
         });
     };
